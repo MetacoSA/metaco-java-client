@@ -3,12 +3,13 @@ package com.metaco.client;
 import com.metaco.client.entity.Asset;
 import com.metaco.client.entity.AssetsHistoryResult;
 import com.metaco.client.entity.HistoryCriteria;
+import com.metaco.client.exceptions.MetacoClientException;
 import junit.framework.Assert;
 import org.junit.Test;
 
 public class MetacoClientImplAssetsTest {
     @Test
-    public void clientCanGetAssets() {
+    public void clientCanGetAssets() throws MetacoClientException {
         MetacoClient client = new MetacoClientBuilder()
                 .withApiUrl("http://***REMOVED***/v1/")
                 .withTestingMode(true)
@@ -20,7 +21,7 @@ public class MetacoClientImplAssetsTest {
     }
 
     @Test
-    public void clientCanGetAsset() {
+    public void clientCanGetAsset() throws MetacoClientException {
         MetacoClient client = new MetacoClientBuilder()
                 .withApiUrl("http://***REMOVED***/v1/")
                 .withTestingMode(true)
@@ -32,7 +33,7 @@ public class MetacoClientImplAssetsTest {
     }
 
     @Test
-    public void clientCanGetAssetsHistory() {
+    public void clientCanGetAssetsHistory() throws MetacoClientException {
         MetacoClient client = new MetacoClientBuilder()
                 .withApiUrl("http://***REMOVED***/v1/")
                 .withTestingMode(true)
@@ -49,7 +50,7 @@ public class MetacoClientImplAssetsTest {
     }
 
     @Test
-    public void clientCanGetAssetHistory() {
+    public void clientCanGetAssetHistory() throws MetacoClientException {
         MetacoClient client = new MetacoClientBuilder()
                 .withApiUrl("http://***REMOVED***/v1/")
                 .withTestingMode(true)

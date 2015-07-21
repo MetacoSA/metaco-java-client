@@ -6,6 +6,7 @@ import com.metaco.client.entity.HistoryCriteria;
 import com.metaco.client.entity.AccountRegistrationResult;
 import com.metaco.client.entity.AssetsHistoryResult;
 import com.metaco.client.entity.WalletDetails;
+import com.metaco.client.exceptions.MetacoClientException;
 
 import java.util.List;
 
@@ -13,31 +14,31 @@ interface MetacoClient {
 
     AccountRegistrationResult RegisterAccount(String phoneNumber);
 
-    AccountStatus GetAccountStatus();
+    AccountStatus GetAccountStatus() throws MetacoClientException;
 
-    void ConfirmPhoneNumber(String validationCode);
+    void ConfirmPhoneNumber(String validationCode) throws MetacoClientException;
 
-    Asset[] GetAssets();
+    Asset[] GetAssets() throws MetacoClientException;
 
-    Asset GetAsset(String ticker);
+    Asset GetAsset(String ticker) throws MetacoClientException;
 
-    AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria);
+    AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException;
 
-    AssetsHistoryResult GetAssetHistory(String ticker, HistoryCriteria criteria);
+    AssetsHistoryResult GetAssetHistory(String ticker, HistoryCriteria criteria) throws MetacoClientException;
 
-    Order CreateOrder(NewOrder createOrder);
+    Order CreateOrder(NewOrder createOrder) throws MetacoClientException;
 
-    List<Order> GetOrders();
+    List<Order> GetOrders() throws MetacoClientException;
 
-    Order GetOrder(String id);
+    Order GetOrder(String id) throws MetacoClientException;
 
-    Order SubmitSignedOrder(String id, RawTransaction rawTransaction);
+    Order SubmitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException;
 
-    void CancelOrder(String id);
+    void CancelOrder(String id) throws MetacoClientException;
 
-    TransactionToSign CreateTransaction();
+    TransactionToSign CreateTransaction() throws MetacoClientException;
 
-    void BroadcastTransaction(RawTransaction rawTransaction);
+    void BroadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException;
 
-    WalletDetails GetWalletDetails();
+    WalletDetails GetWalletDetails() throws MetacoClientException;
 }

@@ -6,6 +6,7 @@ import com.metaco.client.entity.HistoryCriteria;
 import com.metaco.client.entity.AccountRegistrationResult;
 import com.metaco.client.entity.AssetsHistoryResult;
 import com.metaco.client.entity.WalletDetails;
+import com.metaco.client.exceptions.MetacoClientException;
 import com.metaco.client.http.*;
 
 import java.util.List;
@@ -28,27 +29,29 @@ public class MetacoClientImpl implements MetacoClient {
         return null;
     }
 
-    public AccountStatus GetAccountStatus() {
-        return null;
+    public AccountStatus GetAccountStatus() throws MetacoClientException {
+        HttpClient<AccountStatus> client = getHttpClient();
+
+        return client.DoGet("/account", AccountStatus.class);
     }
 
-    public void ConfirmPhoneNumber(String validationCode) {
+    public void ConfirmPhoneNumber(String validationCode) throws MetacoClientException  {
 
     }
 
-    public Asset[] GetAssets() {
+    public Asset[] GetAssets() throws MetacoClientException  {
         HttpClient<Asset[]> client = getHttpClient();
 
         return client.DoGet("/assets", Asset[].class);
     }
 
-    public Asset GetAsset(String ticker) {
+    public Asset GetAsset(String ticker) throws MetacoClientException {
         HttpClient<Asset> client = getHttpClient();
 
         return client.DoGet(String.format("/assets/%s", ticker), Asset.class);
     }
 
-    public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) {
+    public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException  {
         HttpClient<AssetsHistoryResult> client = getHttpClient();
 
         return client.DoGet(String.format("/assets/history?from=%d&tp=%d&freq=%s&orderAsc=%s",
@@ -56,7 +59,7 @@ public class MetacoClientImpl implements MetacoClient {
                 AssetsHistoryResult.class);
     }
 
-    public AssetsHistoryResult GetAssetHistory(String ticker, HistoryCriteria criteria) {
+    public AssetsHistoryResult GetAssetHistory(String ticker, HistoryCriteria criteria) throws MetacoClientException  {
         HttpClient<AssetsHistoryResult> client = getHttpClient();
 
         return client.DoGet(String.format("/assets/%s/history?from=%d&tp=%d&freq=%s&orderAsc=%s",
@@ -64,35 +67,35 @@ public class MetacoClientImpl implements MetacoClient {
                 AssetsHistoryResult.class);
     }
 
-    public Order CreateOrder(NewOrder createOrder) {
+    public Order CreateOrder(NewOrder createOrder) throws MetacoClientException  {
         return null;
     }
 
-    public List<Order> GetOrders() {
+    public List<Order> GetOrders() throws MetacoClientException  {
         return null;
     }
 
-    public Order GetOrder(String id) {
+    public Order GetOrder(String id) throws MetacoClientException  {
         return null;
     }
 
-    public Order SubmitSignedOrder(String id, RawTransaction rawTransaction) {
+    public Order SubmitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException  {
         return null;
     }
 
-    public void CancelOrder(String id) {
+    public void CancelOrder(String id) throws MetacoClientException  {
 
     }
 
-    public TransactionToSign CreateTransaction() {
+    public TransactionToSign CreateTransaction() throws MetacoClientException {
         return null;
     }
 
-    public void BroadcastTransaction(RawTransaction rawTransaction) {
+    public void BroadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException {
 
     }
 
-    public WalletDetails GetWalletDetails() {
+    public WalletDetails GetWalletDetails() throws MetacoClientException {
         return null;
     }
 
