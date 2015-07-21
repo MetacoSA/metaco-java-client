@@ -11,7 +11,7 @@ public class MetacoClientImplAssetsTest {
     @Test
     public void clientCanGetAssets() throws MetacoClientException {
         MetacoClient client = new MetacoClientBuilder()
-                .withApiUrl("http://***REMOVED***/v1/")
+                .withApiUrl("TEST_SERVER")
                 .withTestingMode(true)
                 .makeClient();
 
@@ -23,7 +23,7 @@ public class MetacoClientImplAssetsTest {
     @Test
     public void clientCanGetAsset() throws MetacoClientException {
         MetacoClient client = new MetacoClientBuilder()
-                .withApiUrl("http://***REMOVED***/v1/")
+                .withApiUrl("TEST_SERVER")
                 .withTestingMode(true)
                 .makeClient();
 
@@ -35,7 +35,7 @@ public class MetacoClientImplAssetsTest {
     @Test
     public void clientCanGetAssetsHistory() throws MetacoClientException {
         MetacoClient client = new MetacoClientBuilder()
-                .withApiUrl("http://***REMOVED***/v1/")
+                .withApiUrl("TEST_SERVER")
                 .withTestingMode(true)
                 .makeClient();
 
@@ -52,7 +52,7 @@ public class MetacoClientImplAssetsTest {
     @Test
     public void clientCanGetAssetHistory() throws MetacoClientException {
         MetacoClient client = new MetacoClientBuilder()
-                .withApiUrl("http://***REMOVED***/v1/")
+                .withApiUrl("TEST_SERVER")
                 .withTestingMode(true)
                 .makeClient();
 

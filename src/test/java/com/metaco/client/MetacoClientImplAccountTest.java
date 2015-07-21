@@ -15,7 +15,7 @@ public class MetacoClientImplAccountTest {
     public void clientCantGetAccountStatus() {
         try {
             MetacoClient client = new MetacoClientBuilder()
-                    .withApiUrl("http://***REMOVED***/v1/")
+                    .withApiUrl("TEST_SERVER")
                     .withTestingMode(true)
                     .makeClient();
 
