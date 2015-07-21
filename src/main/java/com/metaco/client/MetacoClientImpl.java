@@ -1,6 +1,5 @@
 package com.metaco.client;
 
-import com.google.gson.Gson;
 import com.metaco.client.entity.*;
 import com.metaco.client.entity.NewOrder;
 import com.metaco.client.entity.HistoryCriteria;
@@ -8,20 +7,17 @@ import com.metaco.client.entity.AccountRegistrationResult;
 import com.metaco.client.entity.AssetsHistoryResult;
 import com.metaco.client.entity.WalletDetails;
 import com.metaco.client.http.*;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 
 import java.util.List;
 
-class MetacoClientImpl implements MetacoClient {
+public class MetacoClientImpl implements MetacoClient {
 
     protected String metacoApiId;
     protected String metacoApiKey;
     protected String metacoApiUrl;
     protected Boolean metacoTestingMode;
 
-    MetacoClientImpl(MetacoClientBuilder builder) {
+    public MetacoClientImpl(MetacoClientBuilder builder) {
         this.metacoApiId = builder.metacoApiId;
         this.metacoApiKey = builder.metacoApiKey;
         this.metacoApiUrl = builder.metacoApiUrl;
@@ -41,21 +37,31 @@ class MetacoClientImpl implements MetacoClient {
     }
 
     public Asset[] GetAssets() {
-        return null;
+        HttpClient<Asset[]> client = getHttpClient();
+
+        return client.DoGet("/assets", Asset[].class);
     }
 
     public Asset GetAsset(String ticker) {
-        HttpClient client = getHttpClient();
+        HttpClient<Asset> client = getHttpClient();
 
-        client.
+        return client.DoGet(String.format("/assets/%s", ticker), Asset.class);
     }
 
     public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) {
-        return null;
+        HttpClient<AssetsHistoryResult> client = getHttpClient();
+
+        return client.DoGet(String.format("/assets/history?from=%d&tp=%d&freq=%s&orderAsc=%s",
+                criteria.getFrom(), criteria.getTo(), criteria.getFreq(), criteria.getOrderAsc()),
+                AssetsHistoryResult.class);
     }
 
-    public AssetHistory GetAssetHistory(String ticker, HistoryCriteria criteria) {
-        return null;
+    public AssetsHistoryResult GetAssetHistory(String ticker, HistoryCriteria criteria) {
+        HttpClient<AssetsHistoryResult> client = getHttpClient();
+
+        return client.DoGet(String.format("/assets/%s/history?from=%d&tp=%d&freq=%s&orderAsc=%s",
+                        ticker, criteria.getFrom(), criteria.getTo(), criteria.getFreq(), criteria.getOrderAsc()),
+                AssetsHistoryResult.class);
     }
 
     public Order CreateOrder(NewOrder createOrder) {
@@ -90,12 +96,7 @@ class MetacoClientImpl implements MetacoClient {
         return null;
     }
 
-    private HttpClient getHttpClient() {
-        return new HttpClientBuilder()
-                .withApiId(metacoApiId)
-                .withApiKey(metacoApiKey)
-                .withApiUrl(metacoApiUrl)
-                .withTestingMode(metacoTestingMode)
-                .makeClient();
+    private <T> HttpClient<T> getHttpClient() {
+        return new HttpClientImpl<T>(this.metacoApiId, this.metacoApiKey, this.metacoApiUrl, this.metacoTestingMode);
     }
 }

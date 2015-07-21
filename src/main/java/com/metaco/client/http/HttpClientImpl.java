@@ -1,31 +1,50 @@
 package com.metaco.client.http;
 
 import com.google.gson.Gson;
+import com.metaco.client.exceptions.ErrorHandler;
+import com.metaco.client.utils.HttpUtils;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-class HttpClientImpl<E> implements HttpClient<E> {
+import javax.ws.rs.core.MediaType;
 
-    HttpClientImpl(HttpClientBuilder builder) {
+public class HttpClientImpl<T> implements HttpClient<T> {
 
+    private String metacoApiId;
+    private String metacoApiKey;
+    private String metacoApiUrl;
+    private Boolean metacoTestingMode;
+
+    public HttpClientImpl(String metacoApiId, String metacoApiKey, String metacoApiUrl, Boolean metacoTestingMode) {
+        this.metacoApiId = metacoApiId;
+        this.metacoApiKey = metacoApiKey;
+        this.metacoApiUrl = metacoApiUrl;
+        this.metacoTestingMode = metacoTestingMode;
     }
 
-    public E DoPost(String uri, Object data, Class<E> typeClass) {
-        return null;
-    }
-
-    public E DoGet(String uri, Class<E> typeClass) {
+    public T DoPost(String url, Object data, Class<T> typeClass) {
         try {
             Client client = Client.create();
-            WebResource webResource = client.resource("http://***REMOVED***/v1/assets");
-            ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
-            if (response.getStatus() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+
+            String jsonEntity = new Gson().toJson(data);
+
+            WebResource webResource = client.resource(GetUrl(url));
+
+            SetHeaders(webResource);
+
+            ClientResponse response = webResource
+                    .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
+                    .accept(MediaType.APPLICATION_JSON_TYPE)
+                    .post(ClientResponse.class);
+
+            String json =  response.getEntity(String.class);
+
+            if (HttpUtils.IsSuccessStatusCode(response.getStatus())) {
+                ErrorHandler.HandleInvalidResponse(response);
             }
 
-            String output = response.getEntity(String.class);
-            return new Gson().fromJson(output, typeClass);
+            return new Gson().fromJson(json, typeClass);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,11 +52,103 @@ class HttpClientImpl<E> implements HttpClient<E> {
         }
     }
 
-    public E DoPut(String uri, Object data, Class<E> typeClass) {
-        return null;
+    public T DoGet(String url, Class<T> typeClass) {
+        try {
+            Client client = Client.create();
+
+            WebResource webResource = client.resource(GetUrl(url));
+
+            SetHeaders(webResource);
+
+            ClientResponse response = webResource
+                    .accept(MediaType.APPLICATION_JSON_TYPE)
+                    .get(ClientResponse.class);
+
+            String json =  response.getEntity(String.class);
+
+            if (HttpUtils.IsSuccessStatusCode(response.getStatus())) {
+                ErrorHandler.HandleInvalidResponse(response);
+            }
+
+            return new Gson().fromJson(json, typeClass);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public E DoDelete(String uri, Object data, Class<E> typeClass) {
-        return null;
+    public T DoPut(String url, Object data, Class<T> typeClass) {
+        try {
+            Client client = Client.create();
+
+            String jsonEntity = new Gson().toJson(data);
+
+            WebResource webResource = client.resource(GetUrl(url));
+
+            SetHeaders(webResource);
+
+            ClientResponse response = webResource
+                    .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
+                    .accept(MediaType.APPLICATION_JSON_TYPE)
+                    .put(ClientResponse.class);
+
+            String json =  response.getEntity(String.class);
+
+            if (HttpUtils.IsSuccessStatusCode(response.getStatus())) {
+                ErrorHandler.HandleInvalidResponse(response);
+            }
+
+            return new Gson().fromJson(json, typeClass);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public T DoDelete(String url, Object data, Class<T> typeClass) {
+        try {
+            Client client = Client.create();
+
+            String jsonEntity = new Gson().toJson(data);
+
+            WebResource webResource = client.resource(GetUrl(url));
+
+            SetHeaders(webResource);
+
+            ClientResponse response = webResource
+                    .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
+                    .accept(MediaType.APPLICATION_JSON_TYPE)
+                    .delete(ClientResponse.class);
+
+            String json =  response.getEntity(String.class);
+
+            if (HttpUtils.IsSuccessStatusCode(response.getStatus())) {
+                ErrorHandler.HandleInvalidResponse(response);
+            }
+
+            return new Gson().fromJson(json, typeClass);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String GetUrl(String relativeUrl) {
+        return this.metacoApiUrl + relativeUrl;
+    }
+
+    private void SetHeaders(WebResource resource) {
+        if (this.metacoApiId != null && !this.metacoApiId.equals("") &&
+                this.metacoApiKey != null && !this.metacoApiKey.equals("")) {
+            resource.header("X-Metaco-Id", this.metacoApiId);
+            resource.header("X-Metaco-Key", this.metacoApiKey);
+        }
+
+        if (this.metacoTestingMode != null && this.metacoTestingMode) {
+            resource.header("X-Metaco-Testing-Mode", this.metacoApiKey);
+        }
     }
 }

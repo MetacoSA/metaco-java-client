@@ -17,12 +17,12 @@ public class MetacoClientBuilder {
     }
 
     public MetacoClientBuilder withApiKey(String apiKey) {
-        this.metacoApiId = apiKey;
+        this.metacoApiKey = apiKey;
         return this;
     }
 
     public MetacoClientBuilder withApiUrl(String apiUrl) {
-        this.metacoApiId = apiUrl;
+        this.metacoApiUrl = apiUrl;
         return this;
     }
 

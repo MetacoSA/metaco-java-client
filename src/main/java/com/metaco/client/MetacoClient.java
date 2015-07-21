@@ -23,7 +23,7 @@ interface MetacoClient {
 
     AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria);
 
-    AssetHistory GetAssetHistory(String ticker, HistoryCriteria criteria);
+    AssetsHistoryResult GetAssetHistory(String ticker, HistoryCriteria criteria);
 
     Order CreateOrder(NewOrder createOrder);
 

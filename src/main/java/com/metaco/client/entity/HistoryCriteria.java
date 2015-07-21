@@ -1,31 +1,31 @@
 package com.metaco.client.entity;
 
 public class HistoryCriteria {
-    public int from;
-    private int to;
+    public long from;
+    private long to;
     private String freq;
     private Boolean orderAsc;
 
-    public HistoryCriteria(int from, int to, String freq, Boolean orderAsc) {
+    public HistoryCriteria(long from, long to, String freq, Boolean orderAsc) {
         this.from = from;
         this.to = to;
         this.freq = freq;
         this.orderAsc = orderAsc;
     }
 
-    public int getFrom() {
+    public long getFrom() {
         return from;
     }
 
-    public void setFrom(int from) {
+    public void setFrom(long from) {
         this.from = from;
     }
 
-    public int getTo() {
+    public long getTo() {
         return to;
     }
 
-    public void setTo(int to) {
+    public void setTo(long to) {
         this.to = to;
     }
 
