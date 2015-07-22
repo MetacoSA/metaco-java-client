@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TransactionToSign {
     private String raw;
-    private List<InputsToSign> inputsToSign = new ArrayList<InputsToSign>();
+    private List<InputsToSign> inputs_to_sign = new ArrayList<InputsToSign>();
 
     public TransactionToSign() {
     }
@@ -18,11 +18,11 @@ public class TransactionToSign {
         this.raw = raw;
     }
 
-    public List<InputsToSign> getInputsToSign() {
-        return inputsToSign;
+    public List<InputsToSign> getInputs_to_sign() {
+        return inputs_to_sign;
     }
 
-    public void setInputsToSign(List<InputsToSign> inputsToSign) {
-        this.inputsToSign = inputsToSign;
+    public void setInputs_to_sign(List<InputsToSign> inputs_to_sign) {
+        this.inputs_to_sign = inputs_to_sign;
     }
 }

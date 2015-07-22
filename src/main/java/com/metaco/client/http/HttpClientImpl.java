@@ -24,11 +24,11 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         this.metacoTestingMode = metacoTestingMode;
     }
 
-    public void DoPost(String uri, Object data) throws MetacoClientException {
-        DoPost(uri, data, null);
+    public void doPost(String uri, Object data) throws MetacoClientException {
+        doPost(uri, data, null);
     }
 
-    public T DoPost(String url, Object data, Class<T> typeClass) throws MetacoClientException {
+    public T doPost(String url, Object data, Class<T> typeClass) throws MetacoClientException {
         Client client = Client.create();
 
         String jsonEntity = new Gson().toJson(data);
@@ -51,7 +51,7 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         return new Gson().fromJson(json, typeClass);
     }
 
-    public T DoGet(String url, Class<T> typeClass) throws MetacoClientException {
+    public T doGet(String url, Class<T> typeClass) throws MetacoClientException {
         Client client = Client.create();
 
         WebResource webResource = client.resource(GetUrl(url));
@@ -71,7 +71,7 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         return new Gson().fromJson(json, typeClass);
     }
 
-    public T DoPut(String url, Object data, Class<T> typeClass) throws MetacoClientException {
+    public T doPut(String url, Object data, Class<T> typeClass) throws MetacoClientException {
         Client client = Client.create();
 
         String jsonEntity = new Gson().toJson(data);
@@ -94,11 +94,11 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         return new Gson().fromJson(json, typeClass);
     }
 
-    public void DoDelete(String uri) throws MetacoClientException {
-        DoDelete(uri, null);
+    public void doDelete(String uri) throws MetacoClientException {
+        doDelete(uri, null);
     }
 
-    public T DoDelete(String url, Class<T> typeClass) throws MetacoClientException {
+    public T doDelete(String url, Class<T> typeClass) throws MetacoClientException {
         Client client = Client.create();
 
         WebResource webResource = client.resource(GetUrl(url));

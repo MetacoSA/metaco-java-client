@@ -137,9 +137,36 @@ interface MetacoClient {
      */
     void cancelOrder(String id) throws MetacoClientException;
 
-    TransactionToSign createTransaction() throws MetacoClientException;
+    /**
+     * Requires Authentication
+     * Create a Transaction using the provided parameters
+     *
+     * @throws MetacoClientException
+     *
+     * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/raw-transaction/get-a-raw-transaction">Online Documentation</a>
+     */
+    TransactionToSign createTransaction(NewTransaction newTransaction) throws MetacoClientException;
 
-    void broadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException;
+    /**
+     * Requires Authentication
+     * Submit a signed transaction
+     * You have to sign each of your inputs of the selected transaction (you will get those details when creating the transaction through Metaco)
+     * Then encode the transaction in hexadecimal and send it here
+     *
+     * @throws MetacoClientException
+     *
+     * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/transaction-broadcast/broadcast-a-transaction">Online Documentation</a>
+     */
+    TransactionBroadcastResult broadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException;
 
-    WalletDetails getWalletDetails() throws MetacoClientException;
+    /**
+     * Requires Authentication
+     * Returns the current wallet state
+     * Contains the current balances, the values and the transaction history
+     *
+     * @throws MetacoClientException
+     *
+     * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/transaction-broadcast/fetch-wallet-information">Online Documentation</a>
+     */
+    WalletDetails getWalletDetails(List<String> addresses) throws MetacoClientException;
 }

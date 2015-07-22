@@ -2,7 +2,7 @@ package com.metaco.client.contracts;
 
 public class InputsToSign {
     private Integer index;
-    private String signingAddress;
+    private String signing_address;
 
     public InputsToSign() {
     }
@@ -15,11 +15,11 @@ public class InputsToSign {
         this.index = index;
     }
 
-    public String getSigningAddress() {
-        return signingAddress;
+    public String getSigning_address() {
+        return signing_address;
     }
 
-    public void setSigningAddress(String signingAddress) {
-        this.signingAddress = signingAddress;
+    public void setSigning_address(String signing_address) {
+        this.signing_address = signing_address;
     }
 }

@@ -3,10 +3,10 @@ package com.metaco.client.http;
 import com.metaco.client.exceptions.MetacoClientException;
 
 public interface HttpClient<E> {
-    void DoPost(String uri, Object data) throws MetacoClientException;
-    E DoPost(String uri, Object data, Class<E> typeClass) throws MetacoClientException;
-    E DoGet(String uri, Class<E> typeClass) throws MetacoClientException;
-    E DoPut(String uri, Object data, Class<E> typeClass) throws MetacoClientException;
-    void DoDelete(String uri) throws MetacoClientException;
-    E DoDelete(String uri, Class<E> typeClass) throws MetacoClientException;
+    void doPost(String uri, Object data) throws MetacoClientException;
+    E doPost(String uri, Object data, Class<E> typeClass) throws MetacoClientException;
+    E doGet(String uri, Class<E> typeClass) throws MetacoClientException;
+    E doPut(String uri, Object data, Class<E> typeClass) throws MetacoClientException;
+    void doDelete(String uri) throws MetacoClientException;
+    E doDelete(String uri, Class<E> typeClass) throws MetacoClientException;
 }
