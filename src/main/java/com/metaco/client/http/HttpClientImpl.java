@@ -94,21 +94,18 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         return new Gson().fromJson(json, typeClass);
     }
 
-    public void DoDelete(String uri, Object data) throws MetacoClientException {
-        DoDelete(uri, data, null);
+    public void DoDelete(String uri) throws MetacoClientException {
+        DoDelete(uri, null);
     }
 
-    public T DoDelete(String url, Object data, Class<T> typeClass) throws MetacoClientException {
+    public T DoDelete(String url, Class<T> typeClass) throws MetacoClientException {
         Client client = Client.create();
-
-        String jsonEntity = new Gson().toJson(data);
 
         WebResource webResource = client.resource(GetUrl(url));
 
         WebResource.Builder builder = SetHeaders(webResource);
 
         ClientResponse response = builder
-                .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .delete(ClientResponse.class);
         String json;
