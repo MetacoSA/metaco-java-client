@@ -10,10 +10,7 @@ import org.junit.Test;
 public class MetacoClientImplAssetsTest {
     @Test
     public void clientCanGetAssets() throws MetacoClientException {
-        MetacoClient client = new MetacoClientBuilder()
-                .withApiUrl("TEST_SERVER")
-                .withTestingMode(true)
-                .makeClient();
+        MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
 
         Asset[] assets = client.GetAssets();
         Assert.assertNotNull(assets);
@@ -22,10 +19,7 @@ public class MetacoClientImplAssetsTest {
 
     @Test
     public void clientCanGetAsset() throws MetacoClientException {
-        MetacoClient client = new MetacoClientBuilder()
-                .withApiUrl("TEST_SERVER")
-                .withTestingMode(true)
-                .makeClient();
+        MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
 
         Asset asset = client.GetAsset("DKY:USD");
         Assert.assertNotNull(asset);
@@ -34,10 +28,7 @@ public class MetacoClientImplAssetsTest {
 
     @Test
     public void clientCanGetAssetsHistory() throws MetacoClientException {
-        MetacoClient client = new MetacoClientBuilder()
-                .withApiUrl("TEST_SERVER")
-                .withTestingMode(true)
-                .makeClient();
+        MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
 
         long currentTimestamp = System.currentTimeMillis() / 1000;
         long timestampThirtyMinutesAgo = currentTimestamp - (30 * 60);
@@ -50,11 +41,8 @@ public class MetacoClientImplAssetsTest {
     }
 
     @Test
-    public void clientCanGetAssetHistory() throws MetacoClientException {
-        MetacoClient client = new MetacoClientBuilder()
-                .withApiUrl("TEST_SERVER")
-                .withTestingMode(true)
-                .makeClient();
+    public void clientCanGetSpecificAssetHistory() throws MetacoClientException {
+        MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
 
         long currentTimestamp = System.currentTimeMillis() / 1000;
         long timestampThirtyMinutesAgo = currentTimestamp - (30 * 60);

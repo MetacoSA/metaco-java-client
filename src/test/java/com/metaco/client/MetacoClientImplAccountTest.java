@@ -14,10 +14,7 @@ public class MetacoClientImplAccountTest {
     @Test
     public void clientCantGetAccountStatus() {
         try {
-            MetacoClient client = new MetacoClientBuilder()
-                    .withApiUrl("TEST_SERVER")
-                    .withTestingMode(true)
-                    .makeClient();
+            MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
 
             AccountStatus status = client.GetAccountStatus();
         } catch (MetacoClientException e) {
