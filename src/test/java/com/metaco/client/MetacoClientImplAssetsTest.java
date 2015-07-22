@@ -16,7 +16,7 @@ public class MetacoClientImplAssetsTest {
     public void clientCanGetAssets() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
-        Asset[] assets = client.GetAssets();
+        Asset[] assets = client.getAssets();
         Assert.assertNotNull(assets);
         Assert.assertTrue(assets.length > 0);
     }
@@ -25,7 +25,7 @@ public class MetacoClientImplAssetsTest {
     public void clientCanGetAsset() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
-        Asset asset = client.GetAsset("DKY:USD");
+        Asset asset = client.getAsset("DKY:USD");
         Assert.assertNotNull(asset);
         Assert.assertEquals(asset.getDefinition().getTicker(), "DKY:USD");
     }
@@ -39,7 +39,7 @@ public class MetacoClientImplAssetsTest {
 
         HistoryCriteria criteria = new HistoryCriteria(timestampThirtyMinutesAgo, currentTimestamp, "10m", false);
 
-        AssetsHistoryResult historyResult = client.GetAssetsHistory(criteria);
+        AssetsHistoryResult historyResult = client.getAssetsHistory(criteria);
         Assert.assertNotNull(historyResult);
         Assert.assertTrue(historyResult.getAssets().length > 0);
     }
@@ -57,7 +57,7 @@ public class MetacoClientImplAssetsTest {
         tickers.add("USD");
         tickers.add("XAU");
 
-        AssetsHistoryResult historyResult = client.GetAssetsHistory(criteria, tickers);
+        AssetsHistoryResult historyResult = client.getAssetsHistory(criteria, tickers);
         Assert.assertNotNull(historyResult);
         Assert.assertTrue(historyResult.getAssets().length > 0);
     }

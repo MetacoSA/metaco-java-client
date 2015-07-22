@@ -1,15 +1,9 @@
 package com.metaco.client;
 
 import com.metaco.client.contracts.*;
-import com.metaco.client.contracts.NewOrder;
-import com.metaco.client.contracts.HistoryCriteria;
-import com.metaco.client.contracts.AccountRegistrationResult;
-import com.metaco.client.contracts.AssetsHistoryResult;
-import com.metaco.client.contracts.WalletDetails;
 import com.metaco.client.exceptions.MetacoClientException;
 import com.metaco.client.http.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MetacoClientImpl implements MetacoClient {
@@ -26,40 +20,40 @@ public class MetacoClientImpl implements MetacoClient {
         this.metacoTestingMode = builder.metacoTestingMode;
     }
 
-    public AccountRegistrationResult RegisterAccount(RegisterAccountRequest request) throws MetacoClientException {
+    public AccountRegistrationResult registerAccount(RegisterAccountRequest request) throws MetacoClientException {
         HttpClient<AccountRegistrationResult> client = getHttpClient();
 
         return client.DoPost("account", request, AccountRegistrationResult.class);
     }
 
-    public AccountStatus GetAccountStatus() throws MetacoClientException {
+    public AccountStatus getAccountStatus() throws MetacoClientException {
         HttpClient<AccountStatus> client = getHttpClient();
 
         return client.DoGet("account", AccountStatus.class);
     }
 
-    public void ConfirmPhoneNumber(ValidateAccountRequest request) throws MetacoClientException  {
+    public void confirmPhoneNumber(ValidateAccountRequest request) throws MetacoClientException  {
         HttpClient client = getHttpClient();
         client.DoPost("account", request);
     }
 
-    public Asset[] GetAssets() throws MetacoClientException  {
+    public Asset[] getAssets() throws MetacoClientException  {
         HttpClient<Asset[]> client = getHttpClient();
 
         return client.DoGet("assets", Asset[].class);
     }
 
-    public Asset GetAsset(String ticker) throws MetacoClientException {
+    public Asset getAsset(String ticker) throws MetacoClientException {
         HttpClient<Asset> client = getHttpClient();
 
         return client.DoGet(String.format("assets/%s", ticker), Asset.class);
     }
 
-    public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException  {
-        return GetAssetsHistory(criteria, null);
+    public AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria) throws MetacoClientException  {
+        return getAssetsHistory(criteria, null);
     }
 
-    public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException  {
+    public AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException  {
         HttpClient<AssetsHistoryResult> client = getHttpClient();
 
         String tickersStr;
@@ -82,45 +76,45 @@ public class MetacoClientImpl implements MetacoClient {
                 AssetsHistoryResult.class);
     }
 
-    public Order CreateOrder(NewOrder createOrder) throws MetacoClientException  {
+    public Order createOrder(NewOrder createOrder) throws MetacoClientException  {
         HttpClient<Order> client = getHttpClient();
 
         return client.DoPost("orders", createOrder, Order.class);
     }
 
-    public Order[] GetOrders() throws MetacoClientException  {
+    public Order[] getOrders() throws MetacoClientException  {
         HttpClient<Order[]> client = getHttpClient();
 
         return client.DoGet("orders", Order[].class);
     }
 
-    public Order GetOrder(String id) throws MetacoClientException  {
+    public Order getOrder(String id) throws MetacoClientException  {
         HttpClient<Order> client = getHttpClient();
 
         return client.DoGet(String.format("orders/%s", id), Order.class);
     }
 
-    public Order SubmitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException  {
+    public Order submitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException  {
         HttpClient<Order> client = getHttpClient();
 
         return client.DoPost(String.format("orders/%s", id), rawTransaction, Order.class);
     }
 
-    public void CancelOrder(String id) throws MetacoClientException  {
+    public void cancelOrder(String id) throws MetacoClientException  {
         HttpClient<Order> client = getHttpClient();
 
         client.DoDelete(String.format("orders/%s", id), null);
     }
 
-    public TransactionToSign CreateTransaction() throws MetacoClientException {
+    public TransactionToSign createTransaction() throws MetacoClientException {
         return null;
     }
 
-    public void BroadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException {
+    public void broadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException {
 
     }
 
-    public WalletDetails GetWalletDetails() throws MetacoClientException {
+    public WalletDetails getWalletDetails() throws MetacoClientException {
         return null;
     }
 

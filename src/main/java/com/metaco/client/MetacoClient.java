@@ -1,11 +1,6 @@
 package com.metaco.client;
 
 import com.metaco.client.contracts.*;
-import com.metaco.client.contracts.NewOrder;
-import com.metaco.client.contracts.HistoryCriteria;
-import com.metaco.client.contracts.AccountRegistrationResult;
-import com.metaco.client.contracts.AssetsHistoryResult;
-import com.metaco.client.contracts.WalletDetails;
 import com.metaco.client.exceptions.MetacoClientException;
 
 import java.util.List;
@@ -22,7 +17,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/account/account-management/register-an-account">Online Documentation</a>
      */
-    AccountRegistrationResult RegisterAccount(RegisterAccountRequest request) throws MetacoClientException;
+    AccountRegistrationResult registerAccount(RegisterAccountRequest request) throws MetacoClientException;
 
     /**
      * Requires Authentication
@@ -33,7 +28,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/account/account-management/get-account-status">Online Documentation</a>
      */
-    AccountStatus GetAccountStatus() throws MetacoClientException;
+    AccountStatus getAccountStatus() throws MetacoClientException;
 
     /**
      * Requires Authentication
@@ -43,7 +38,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/account/confirm-a-registration/confirm-a-phone-number">Online Documentation</a>
      */
-    void ConfirmPhoneNumber(ValidateAccountRequest request) throws MetacoClientException;
+    void confirmPhoneNumber(ValidateAccountRequest request) throws MetacoClientException;
 
     /**
      * Returns all the available Assets and their details
@@ -53,7 +48,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/assets/assets-list/list-all-assets">Online Documentation</a>
      */
-    Asset[] GetAssets() throws MetacoClientException;
+    Asset[] getAssets() throws MetacoClientException;
 
     /**
      * Returns the selected Asset if it exists and its details
@@ -63,7 +58,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/assets/asset-information/retrieve-an-asset">Online Documentation</a>
      */
-    Asset GetAsset(String ticker) throws MetacoClientException;
+    Asset getAsset(String ticker) throws MetacoClientException;
 
     /**
      * Returns the history for all the available assets according to the given criteria
@@ -73,7 +68,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/assets/asset-information/retrieve-an-asset">Online Documentation</a>
      */
-    AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException;
+    AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria) throws MetacoClientException;
 
     /**
      * Returns the history for the provided assets according to the given criteria
@@ -84,7 +79,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/assets/asset-information/retrieve-an-asset">Online Documentation</a>
      */
-    AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException;
+    AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException;
 
     /**
      * Requires Authentication
@@ -96,7 +91,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/request-an-order">Online Documentation</a>
      */
-    Order CreateOrder(NewOrder createOrder) throws MetacoClientException;
+    Order createOrder(NewOrder createOrder) throws MetacoClientException;
 
     /**
      * Requires Authentication
@@ -107,7 +102,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/list-all-orders">Online Documentation</a>
      */
-    Order[] GetOrders() throws MetacoClientException;
+    Order[] getOrders() throws MetacoClientException;
 
     /**
      * Requires Authentication
@@ -118,7 +113,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/retreive-an-order">Online Documentation</a>
      */
-    Order GetOrder(String id) throws MetacoClientException;
+    Order getOrder(String id) throws MetacoClientException;
 
     /**
      * Requires Authentication
@@ -130,7 +125,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/submit-a-signed-order">Online Documentation</a>
      */
-    Order SubmitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException;
+    Order submitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException;
 
     /**
      * Requires Authentication
@@ -140,12 +135,11 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/cancel-an-order">Online Documentation</a>
      */
-    void CancelOrder(String id) throws MetacoClientException;
+    void cancelOrder(String id) throws MetacoClientException;
 
-    TransactionToSign CreateTransaction() throws MetacoClientException;
+    TransactionToSign createTransaction() throws MetacoClientException;
 
-    //TODO
-    void BroadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException;
+    void broadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException;
 
-    WalletDetails GetWalletDetails() throws MetacoClientException;
+    WalletDetails getWalletDetails() throws MetacoClientException;
 }

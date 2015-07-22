@@ -17,7 +17,7 @@ public class ErrorHandler {
         ThrowError(metacoError, content, statusCode);
     }
 
-    public static void ThrowError(MetacoErrorResult metacoError, String content, int statusCode) throws MetacoClientException {
+    private static void ThrowError(MetacoErrorResult metacoError, String content, int statusCode) throws MetacoClientException {
         MetacoErrorsDefinitions.ErrorType errorType = MetacoErrorsDefinitions.GetErrorType(metacoError);
         throw new MetacoClientException(null, errorType, content, statusCode);
     }

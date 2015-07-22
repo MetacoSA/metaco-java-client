@@ -17,7 +17,7 @@ public class MetacoClientImplOrdersTest {
     public void clientCanGetOrders() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder().makeClient();
 
-        Order[] orders = client.GetOrders();
+        Order[] orders = client.getOrders();
         Assert.assertNotNull(orders);
         Assert.assertTrue(orders.length > 0);
     }
@@ -26,7 +26,7 @@ public class MetacoClientImplOrdersTest {
     public void clientCanGetOrder() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder().makeClient();
 
-        Order order = client.GetOrder("5a106504-9650-4b8a-b975-c5fce6c1f0b9");
+        Order order = client.getOrder("5a106504-9650-4b8a-b975-c5fce6c1f0b9");
         Assert.assertNotNull(order);
         Assert.assertEquals(order.getId(), "5a106504-9650-4b8a-b975-c5fce6c1f0b9");
     }
@@ -37,7 +37,7 @@ public class MetacoClientImplOrdersTest {
             MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
                     .makeClient();
 
-            client.CancelOrder("5b106584-9670-4b8a-b975-c5fce6c1f0b1");
+            client.cancelOrder("5b106584-9670-4b8a-b975-c5fce6c1f0b1");
         } catch (MetacoClientException e) {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.OrderNotFound);
         }
@@ -58,7 +58,7 @@ public class MetacoClientImplOrdersTest {
         newOrder.setTicker("DKY:USD");
         newOrder.setType("bid");
 
-        Order created = client.CreateOrder(newOrder);
+        Order created = client.createOrder(newOrder);
 
         Assert.assertNotNull(created);
         Assert.assertNotNull(created.getAmount_asset());
@@ -74,7 +74,7 @@ public class MetacoClientImplOrdersTest {
             RawTransaction rawTx = new RawTransaction();
             rawTx.setRaw("fakerawtx");
 
-            client.SubmitSignedOrder("5a106504-9650-4b8a-b975-c5fce6c1f0b9", rawTx);
+            client.submitSignedOrder("5a106504-9650-4b8a-b975-c5fce6c1f0b9", rawTx);
         } catch (MetacoClientException e) {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.InvalidInput);
         }

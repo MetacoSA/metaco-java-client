@@ -20,7 +20,7 @@ public class MetacoClientImplAccountTest {
             RegisterAccountRequest registerAccountRequest = new RegisterAccountRequest();
             registerAccountRequest.setPhone("");
 
-            AccountRegistrationResult result = client.RegisterAccount(registerAccountRequest);
+            AccountRegistrationResult result = client.registerAccount(registerAccountRequest);
         } catch (MetacoClientException e) {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.SmsSendingFailed);
         }
@@ -34,7 +34,7 @@ public class MetacoClientImplAccountTest {
             ValidateAccountRequest validateAccountRequest = new ValidateAccountRequest();
             validateAccountRequest.setCode("RandomCode");
 
-            client.ConfirmPhoneNumber(validateAccountRequest);
+            client.confirmPhoneNumber(validateAccountRequest);
         } catch (MetacoClientException e) {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.Unauthorized);
         }
@@ -48,7 +48,7 @@ public class MetacoClientImplAccountTest {
         RegisterAccountRequest registerAccountRequest = new RegisterAccountRequest();
         registerAccountRequest.setPhone("+00000000000");
 
-        AccountRegistrationResult result = client.RegisterAccount(registerAccountRequest);
+        AccountRegistrationResult result = client.registerAccount(registerAccountRequest);
         Assert.assertNotNull(result.getApiId());
 
         client = TestUtils.GetMetacoAnonymousClientTestBuilder()
@@ -59,7 +59,7 @@ public class MetacoClientImplAccountTest {
         ValidateAccountRequest validateAccountRequest = new ValidateAccountRequest();
         validateAccountRequest.setCode("TODO: The code");
 
-        client.ConfirmPhoneNumber(validateAccountRequest);
+        client.confirmPhoneNumber(validateAccountRequest);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class MetacoClientImplAccountTest {
         try {
             MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
-            AccountStatus status = client.GetAccountStatus();
+            AccountStatus status = client.getAccountStatus();
         } catch (MetacoClientException e) {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.Unauthorized);
         }
@@ -77,7 +77,7 @@ public class MetacoClientImplAccountTest {
     public void clientCanGetAccountStatus() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder().makeClient();
 
-        AccountStatus status = client.GetAccountStatus();
+        AccountStatus status = client.getAccountStatus();
 
         Assert.assertNotNull(status.getApiId());
     }
