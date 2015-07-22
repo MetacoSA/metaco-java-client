@@ -1,8 +1,5 @@
 # Metaco API Java client [![Build Status](https://travis-ci.org/MetacoSA/metaco-java-client.svg?branch=master)](https://travis-ci.org/MetacoSA/metaco-java-client)
 
-Application Name Overview
-==============================================
-
 [Metaco](https://metaco.com) REST API provides a set of services to integrate Metaco into third-party applications. It offers trading and payment facilities as well as wallet management features.
 
 Our Java Client implements every single functionality of the API.
