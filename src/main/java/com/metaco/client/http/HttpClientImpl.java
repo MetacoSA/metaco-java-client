@@ -94,6 +94,10 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         return new Gson().fromJson(json, typeClass);
     }
 
+    public void DoDelete(String uri, Object data) throws MetacoClientException {
+        DoDelete(uri, data, null);
+    }
+
     public T DoDelete(String url, Object data, Class<T> typeClass) throws MetacoClientException {
         Client client = Client.create();
 
@@ -107,14 +111,21 @@ public class HttpClientImpl<T> implements HttpClient<T> {
                 .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .delete(ClientResponse.class);
-
-        String json =  response.getEntity(String.class);
+        String json;
+        try {
+            json =  response.getEntity(String.class);
+        } catch (Exception e) {
+            json = null;
+        }
 
         if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
             ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
         }
-
-        return new Gson().fromJson(json, typeClass);
+        if (json == null || typeClass == null) {
+            return null;
+        } else {
+            return new Gson().fromJson(json, typeClass);
+        }
     }
 
     private String GetUrl(String relativeUrl) {

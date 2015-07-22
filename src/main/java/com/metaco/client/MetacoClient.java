@@ -86,9 +86,20 @@ interface MetacoClient {
      */
     AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException;
 
+    /**
+     * Requires Authentication
+     * Create an order using the provided parameters
+     * This order will be processed in our system
+     * It will require your signature later when the trade state will be Signing
+     *
+     * @throws MetacoClientException
+     *
+     * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/request-an-order">Online Documentation</a>
+     */
     Order CreateOrder(NewOrder createOrder) throws MetacoClientException;
 
     /**
+     * Requires Authentication
      * Returns the user's orders
      *
      * @return The orders array
@@ -99,6 +110,7 @@ interface MetacoClient {
     Order[] GetOrders() throws MetacoClientException;
 
     /**
+     * Requires Authentication
      * Returns the specified user's order
      *
      * @return The order object
@@ -108,12 +120,31 @@ interface MetacoClient {
      */
     Order GetOrder(String id) throws MetacoClientException;
 
+    /**
+     * Requires Authentication
+     * Submit a signed order
+     * You have to sign each of your inputs of the selected order (you will get those details by fetching the orders)
+     * Then encode the transaction in hexadecimal and send it here
+     *
+     * @throws MetacoClientException
+     *
+     * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/submit-a-signed-order">Online Documentation</a>
+     */
     Order SubmitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException;
 
+    /**
+     * Requires Authentication
+     * Cancel the specified order
+     *
+     * @throws MetacoClientException
+     *
+     * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/cancel-an-order">Online Documentation</a>
+     */
     void CancelOrder(String id) throws MetacoClientException;
 
     TransactionToSign CreateTransaction() throws MetacoClientException;
 
+    //TODO
     void BroadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException;
 
     WalletDetails GetWalletDetails() throws MetacoClientException;

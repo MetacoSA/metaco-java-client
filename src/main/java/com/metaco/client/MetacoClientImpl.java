@@ -9,6 +9,7 @@ import com.metaco.client.contracts.WalletDetails;
 import com.metaco.client.exceptions.MetacoClientException;
 import com.metaco.client.http.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MetacoClientImpl implements MetacoClient {
@@ -82,7 +83,9 @@ public class MetacoClientImpl implements MetacoClient {
     }
 
     public Order CreateOrder(NewOrder createOrder) throws MetacoClientException  {
-        return null;
+        HttpClient<Order> client = getHttpClient();
+
+        return client.DoPost("orders", createOrder, Order.class);
     }
 
     public Order[] GetOrders() throws MetacoClientException  {
@@ -98,11 +101,15 @@ public class MetacoClientImpl implements MetacoClient {
     }
 
     public Order SubmitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException  {
-        return null;
+        HttpClient<Order> client = getHttpClient();
+
+        return client.DoPost(String.format("orders/%s", id), rawTransaction, Order.class);
     }
 
     public void CancelOrder(String id) throws MetacoClientException  {
+        HttpClient<Order> client = getHttpClient();
 
+        client.DoDelete(String.format("orders/%s", id), null);
     }
 
     public TransactionToSign CreateTransaction() throws MetacoClientException {

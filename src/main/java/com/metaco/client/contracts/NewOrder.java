@@ -5,7 +5,7 @@ import java.util.List;
 
 public class NewOrder {
     private String ticker;
-    private Integer amountAsset;
+    private Integer amount_asset;
     private String recipient;
     private List<String> funding = new ArrayList<String>();
     private String change;
@@ -23,12 +23,12 @@ public class NewOrder {
         this.ticker = ticker;
     }
 
-    public Integer getAmountAsset() {
-        return amountAsset;
+    public Integer getAmount_asset() {
+        return amount_asset;
     }
 
-    public void setAmountAsset(Integer amountAsset) {
-        this.amountAsset = amountAsset;
+    public void setAmount_asset(Integer amount_asset) {
+        this.amount_asset = amount_asset;
     }
 
     public String getRecipient() {
