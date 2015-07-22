@@ -99,6 +99,7 @@ public class HttpClientImpl<T> implements HttpClient<T> {
     }
 
     public T doDelete(String url, Class<T> typeClass) throws MetacoClientException {
+
         Client client = Client.create();
 
         WebResource webResource = client.resource(GetUrl(url));
