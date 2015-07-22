@@ -16,7 +16,7 @@ To be updated.
 Usage
 ----------------------------------------------
 
-You can use our [Unit tests](https://github.com/MetacoSA/metaco-java-client/tree/master/src/test/java/com/metaco/client) to learn the basics or the links in the summary of this document.
+You can use our [Unit tests](https://github.com/MetacoSA/metaco-java-client/tree/master/src/test/java/com/metaco/api) to learn the basics or the links in the summary of this document.
 
 Testing
 ----------------------------------------------
