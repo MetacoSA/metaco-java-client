@@ -1,6 +1,6 @@
 package helpers;
 
-import com.metaco.client.MetacoClientBuilder;
+import com.metaco.api.MetacoClientBuilder;
 
 import java.util.Map;
 

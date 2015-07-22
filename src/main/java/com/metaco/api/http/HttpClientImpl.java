@@ -1,0 +1,148 @@
+package com.metaco.api.http;
+
+import com.google.gson.Gson;
+import com.metaco.api.exceptions.ErrorHandler;
+import com.metaco.api.exceptions.MetacoClientException;
+import com.metaco.api.utils.HttpUtils;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+
+import javax.ws.rs.core.MediaType;
+
+public class HttpClientImpl<T> implements HttpClient<T> {
+
+    private String metacoApiId;
+    private String metacoApiKey;
+    private String metacoApiUrl;
+    private Boolean metacoTestingMode;
+
+    public HttpClientImpl(String metacoApiId, String metacoApiKey, String metacoApiUrl, Boolean metacoTestingMode) {
+        this.metacoApiId = metacoApiId;
+        this.metacoApiKey = metacoApiKey;
+        this.metacoApiUrl = metacoApiUrl;
+        this.metacoTestingMode = metacoTestingMode;
+    }
+
+    public void doPost(String uri, Object data) throws MetacoClientException {
+        doPost(uri, data, null);
+    }
+
+    public T doPost(String url, Object data, Class<T> typeClass) throws MetacoClientException {
+        Client client = Client.create();
+
+        String jsonEntity = new Gson().toJson(data);
+
+        WebResource webResource = client.resource(GetUrl(url));
+
+        WebResource.Builder builder = SetHeaders(webResource);
+
+        ClientResponse response = builder
+                .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .post(ClientResponse.class);
+
+        String json =  response.getEntity(String.class);
+
+        if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
+            ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+        }
+
+        return new Gson().fromJson(json, typeClass);
+    }
+
+    public T doGet(String url, Class<T> typeClass) throws MetacoClientException {
+        Client client = Client.create();
+
+        WebResource webResource = client.resource(GetUrl(url));
+
+        WebResource.Builder builder = SetHeaders(webResource);
+
+        ClientResponse response = builder
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .get(ClientResponse.class);
+
+        String json =  response.getEntity(String.class);
+
+        if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
+            ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+        }
+
+        return new Gson().fromJson(json, typeClass);
+    }
+
+    public T doPut(String url, Object data, Class<T> typeClass) throws MetacoClientException {
+        Client client = Client.create();
+
+        String jsonEntity = new Gson().toJson(data);
+
+        WebResource webResource = client.resource(GetUrl(url));
+
+        WebResource.Builder builder = SetHeaders(webResource);
+
+        ClientResponse response = builder
+                .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .put(ClientResponse.class);
+
+        String json =  response.getEntity(String.class);
+
+        if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
+            ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+        }
+
+        return new Gson().fromJson(json, typeClass);
+    }
+
+    public void doDelete(String uri) throws MetacoClientException {
+        doDelete(uri, null);
+    }
+
+    public T doDelete(String url, Class<T> typeClass) throws MetacoClientException {
+
+        Client client = Client.create();
+
+        WebResource webResource = client.resource(GetUrl(url));
+
+        WebResource.Builder builder = SetHeaders(webResource);
+
+        ClientResponse response = builder
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .delete(ClientResponse.class);
+        String json;
+        try {
+            json =  response.getEntity(String.class);
+        } catch (Exception e) {
+            json = null;
+        }
+
+        if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
+            ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+        }
+        if (json == null || typeClass == null) {
+            return null;
+        } else {
+            return new Gson().fromJson(json, typeClass);
+        }
+    }
+
+    private String GetUrl(String relativeUrl) {
+        return this.metacoApiUrl + relativeUrl;
+    }
+
+    private WebResource.Builder SetHeaders(WebResource resource) {
+        WebResource.Builder builder = resource.getRequestBuilder();
+
+        if (this.metacoApiId != null && !this.metacoApiId.equals("") &&
+                this.metacoApiKey != null && !this.metacoApiKey.equals("")) {
+            builder.header("X-Metaco-Id", this.metacoApiId)
+                    .header("X-Metaco-Key", this.metacoApiKey);
+        }
+
+        if (this.metacoTestingMode != null && this.metacoTestingMode) {
+            builder.header("X-Metaco-Testing-Mode", this.metacoApiKey);
+        }
+
+        return builder;
+    }
+}
