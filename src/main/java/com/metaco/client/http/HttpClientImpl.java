@@ -24,6 +24,10 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         this.metacoTestingMode = metacoTestingMode;
     }
 
+    public void DoPost(String uri, Object data) throws MetacoClientException {
+        DoPost(uri, data, null);
+    }
+
     public T DoPost(String url, Object data, Class<T> typeClass) throws MetacoClientException {
         Client client = Client.create();
 

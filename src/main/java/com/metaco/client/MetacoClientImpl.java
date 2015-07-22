@@ -28,29 +28,30 @@ public class MetacoClientImpl implements MetacoClient {
     public AccountRegistrationResult RegisterAccount(RegisterAccountRequest request) throws MetacoClientException {
         HttpClient<AccountRegistrationResult> client = getHttpClient();
 
-        return client.DoPost("/account", request, AccountRegistrationResult.class);
+        return client.DoPost("account", request, AccountRegistrationResult.class);
     }
 
     public AccountStatus GetAccountStatus() throws MetacoClientException {
         HttpClient<AccountStatus> client = getHttpClient();
 
-        return client.DoGet("/account", AccountStatus.class);
+        return client.DoGet("account", AccountStatus.class);
     }
 
-    public void ConfirmPhoneNumber(String validationCode) throws MetacoClientException  {
-
+    public void ConfirmPhoneNumber(ValidateAccountRequest request) throws MetacoClientException  {
+        HttpClient client = getHttpClient();
+        client.DoPost("account", request);
     }
 
     public Asset[] GetAssets() throws MetacoClientException  {
         HttpClient<Asset[]> client = getHttpClient();
 
-        return client.DoGet("/assets", Asset[].class);
+        return client.DoGet("assets", Asset[].class);
     }
 
     public Asset GetAsset(String ticker) throws MetacoClientException {
         HttpClient<Asset> client = getHttpClient();
 
-        return client.DoGet(String.format("/assets/%s", ticker), Asset.class);
+        return client.DoGet(String.format("assets/%s", ticker), Asset.class);
     }
 
     public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException  {
@@ -75,7 +76,7 @@ public class MetacoClientImpl implements MetacoClient {
             tickersStr = "all";
         }
 
-        return client.DoGet(String.format("/assets/history?tickers=%s&from=%d&to=%d&freq=%s&orderAsc=%s",
+        return client.DoGet(String.format("assets/history?tickers=%s&from=%d&to=%d&freq=%s&orderAsc=%s",
                 tickersStr, criteria.getFrom(), criteria.getTo(), criteria.getFreq(), criteria.getOrderAsc()),
                 AssetsHistoryResult.class);
     }
