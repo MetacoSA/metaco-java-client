@@ -7,6 +7,9 @@ import com.metaco.client.exceptions.MetacoClientException;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MetacoClientImplAssetsTest {
     @Test
     public void clientCanGetAssets() throws MetacoClientException {
@@ -41,7 +44,7 @@ public class MetacoClientImplAssetsTest {
     }
 
     @Test
-    public void clientCanGetSpecificAssetHistory() throws MetacoClientException {
+    public void clientCanGetSpecificAssetsHistory() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
 
         long currentTimestamp = System.currentTimeMillis() / 1000;
@@ -49,7 +52,11 @@ public class MetacoClientImplAssetsTest {
 
         HistoryCriteria criteria = new HistoryCriteria(timestampThirtyMinutesAgo, currentTimestamp, "10m", false);
 
-        AssetsHistoryResult historyResult = client.GetAssetHistory("DKY:USD", criteria);
+        List<String> tickers = new ArrayList<String>();
+        tickers.add("USD");
+        tickers.add("XAU");
+
+        AssetsHistoryResult historyResult = client.GetAssetsHistory(criteria, tickers);
         Assert.assertNotNull(historyResult);
         Assert.assertTrue(historyResult.getAssets().length > 0);
     }

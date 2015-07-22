@@ -51,19 +51,18 @@ public class MetacoClientImpl implements MetacoClient {
         return client.DoGet(String.format("/assets/%s", ticker), Asset.class);
     }
 
-    public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException  {
-        HttpClient<AssetsHistoryResult> client = getHttpClient();
 
-        return client.DoGet(String.format("/assets/history?from=%d&tp=%d&freq=%s&orderAsc=%s",
-                criteria.getFrom(), criteria.getTo(), criteria.getFreq(), criteria.getOrderAsc()),
-                AssetsHistoryResult.class);
+    public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException  {
+        return GetAssetsHistory(criteria, null);
     }
 
-    public AssetsHistoryResult GetAssetHistory(String ticker, HistoryCriteria criteria) throws MetacoClientException  {
+    public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException  {
         HttpClient<AssetsHistoryResult> client = getHttpClient();
 
-        return client.DoGet(String.format("/assets/%s/history?from=%d&tp=%d&freq=%s&orderAsc=%s",
-                        ticker, criteria.getFrom(), criteria.getTo(), criteria.getFreq(), criteria.getOrderAsc()),
+        String tickersStr = (tickers == null || tickers.isEmpty()) ? "all" : String.join(",", tickers);
+
+        return client.DoGet(String.format("/assets/history?tickers=%s&from=%d&to=%d&freq=%s&orderAsc=%s",
+                tickersStr, criteria.getFrom(), criteria.getTo(), criteria.getFreq(), criteria.getOrderAsc()),
                 AssetsHistoryResult.class);
     }
 

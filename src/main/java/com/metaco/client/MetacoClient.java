@@ -23,8 +23,7 @@ interface MetacoClient {
     Asset GetAsset(String ticker) throws MetacoClientException;
 
     AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException;
-
-    AssetsHistoryResult GetAssetHistory(String ticker, HistoryCriteria criteria) throws MetacoClientException;
+    AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException;
 
     Order CreateOrder(NewOrder createOrder) throws MetacoClientException;
 
