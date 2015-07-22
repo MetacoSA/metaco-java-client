@@ -1,9 +1,10 @@
 package com.metaco.client;
 
-import com.metaco.client.entity.Asset;
-import com.metaco.client.entity.AssetsHistoryResult;
-import com.metaco.client.entity.HistoryCriteria;
+import com.metaco.client.contracts.Asset;
+import com.metaco.client.contracts.AssetsHistoryResult;
+import com.metaco.client.contracts.HistoryCriteria;
 import com.metaco.client.exceptions.MetacoClientException;
+import helpers.TestUtils;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class MetacoClientImplAssetsTest {
     @Test
     public void clientCanGetAssets() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
+        MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
         Asset[] assets = client.GetAssets();
         Assert.assertNotNull(assets);
@@ -22,7 +23,7 @@ public class MetacoClientImplAssetsTest {
 
     @Test
     public void clientCanGetAsset() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
+        MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
         Asset asset = client.GetAsset("DKY:USD");
         Assert.assertNotNull(asset);
@@ -31,7 +32,7 @@ public class MetacoClientImplAssetsTest {
 
     @Test
     public void clientCanGetAssetsHistory() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
+        MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
         long currentTimestamp = System.currentTimeMillis() / 1000;
         long timestampThirtyMinutesAgo = currentTimestamp - (30 * 60);
@@ -45,7 +46,7 @@ public class MetacoClientImplAssetsTest {
 
     @Test
     public void clientCanGetSpecificAssetsHistory() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoClientTestBuilder().makeClient();
+        MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
         long currentTimestamp = System.currentTimeMillis() / 1000;
         long timestampThirtyMinutesAgo = currentTimestamp - (30 * 60);

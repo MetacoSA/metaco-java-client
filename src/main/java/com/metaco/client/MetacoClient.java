@@ -1,18 +1,18 @@
 package com.metaco.client;
 
-import com.metaco.client.entity.*;
-import com.metaco.client.entity.NewOrder;
-import com.metaco.client.entity.HistoryCriteria;
-import com.metaco.client.entity.AccountRegistrationResult;
-import com.metaco.client.entity.AssetsHistoryResult;
-import com.metaco.client.entity.WalletDetails;
+import com.metaco.client.contracts.*;
+import com.metaco.client.contracts.NewOrder;
+import com.metaco.client.contracts.HistoryCriteria;
+import com.metaco.client.contracts.AccountRegistrationResult;
+import com.metaco.client.contracts.AssetsHistoryResult;
+import com.metaco.client.contracts.WalletDetails;
 import com.metaco.client.exceptions.MetacoClientException;
 
 import java.util.List;
 
 interface MetacoClient {
 
-    AccountRegistrationResult RegisterAccount(String phoneNumber);
+    AccountRegistrationResult RegisterAccount(RegisterAccountRequest request) throws MetacoClientException;
 
     AccountStatus GetAccountStatus() throws MetacoClientException;
 

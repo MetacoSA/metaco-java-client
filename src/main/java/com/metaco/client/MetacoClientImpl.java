@@ -1,11 +1,11 @@
 package com.metaco.client;
 
-import com.metaco.client.entity.*;
-import com.metaco.client.entity.NewOrder;
-import com.metaco.client.entity.HistoryCriteria;
-import com.metaco.client.entity.AccountRegistrationResult;
-import com.metaco.client.entity.AssetsHistoryResult;
-import com.metaco.client.entity.WalletDetails;
+import com.metaco.client.contracts.*;
+import com.metaco.client.contracts.NewOrder;
+import com.metaco.client.contracts.HistoryCriteria;
+import com.metaco.client.contracts.AccountRegistrationResult;
+import com.metaco.client.contracts.AssetsHistoryResult;
+import com.metaco.client.contracts.WalletDetails;
 import com.metaco.client.exceptions.MetacoClientException;
 import com.metaco.client.http.*;
 
@@ -25,8 +25,10 @@ public class MetacoClientImpl implements MetacoClient {
         this.metacoTestingMode = builder.metacoTestingMode;
     }
 
-    public AccountRegistrationResult RegisterAccount(String phoneNumber) {
-        return null;
+    public AccountRegistrationResult RegisterAccount(RegisterAccountRequest request) throws MetacoClientException {
+        HttpClient<AccountRegistrationResult> client = getHttpClient();
+
+        return client.DoPost("/account", request, AccountRegistrationResult.class);
     }
 
     public AccountStatus GetAccountStatus() throws MetacoClientException {
@@ -50,7 +52,6 @@ public class MetacoClientImpl implements MetacoClient {
 
         return client.DoGet(String.format("/assets/%s", ticker), Asset.class);
     }
-
 
     public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria) throws MetacoClientException  {
         return GetAssetsHistory(criteria, null);

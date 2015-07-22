@@ -31,9 +31,9 @@ public class HttpClientImpl<T> implements HttpClient<T> {
 
         WebResource webResource = client.resource(GetUrl(url));
 
-        SetHeaders(webResource);
+        WebResource.Builder builder = SetHeaders(webResource);
 
-        ClientResponse response = webResource
+        ClientResponse response = builder
                 .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .post(ClientResponse.class);
@@ -52,9 +52,9 @@ public class HttpClientImpl<T> implements HttpClient<T> {
 
         WebResource webResource = client.resource(GetUrl(url));
 
-        SetHeaders(webResource);
+        WebResource.Builder builder = SetHeaders(webResource);
 
-        ClientResponse response = webResource
+        ClientResponse response = builder
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get(ClientResponse.class);
 
@@ -74,9 +74,9 @@ public class HttpClientImpl<T> implements HttpClient<T> {
 
         WebResource webResource = client.resource(GetUrl(url));
 
-        SetHeaders(webResource);
+        WebResource.Builder builder = SetHeaders(webResource);
 
-        ClientResponse response = webResource
+        ClientResponse response = builder
                 .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .put(ClientResponse.class);
@@ -97,9 +97,9 @@ public class HttpClientImpl<T> implements HttpClient<T> {
 
         WebResource webResource = client.resource(GetUrl(url));
 
-        SetHeaders(webResource);
+        WebResource.Builder builder = SetHeaders(webResource);
 
-        ClientResponse response = webResource
+        ClientResponse response = builder
                 .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .delete(ClientResponse.class);
@@ -117,15 +117,19 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         return this.metacoApiUrl + relativeUrl;
     }
 
-    private void SetHeaders(WebResource resource) {
+    private WebResource.Builder SetHeaders(WebResource resource) {
+        WebResource.Builder builder = resource.getRequestBuilder();
+
         if (this.metacoApiId != null && !this.metacoApiId.equals("") &&
                 this.metacoApiKey != null && !this.metacoApiKey.equals("")) {
-            resource.header("X-Metaco-Id", this.metacoApiId);
-            resource.header("X-Metaco-Key", this.metacoApiKey);
+            builder.header("X-Metaco-Id", this.metacoApiId)
+                    .header("X-Metaco-Key", this.metacoApiKey);
         }
 
         if (this.metacoTestingMode != null && this.metacoTestingMode) {
-            resource.header("X-Metaco-Testing-Mode", this.metacoApiKey);
+            builder.header("X-Metaco-Testing-Mode", this.metacoApiKey);
         }
+
+        return builder;
     }
 }
