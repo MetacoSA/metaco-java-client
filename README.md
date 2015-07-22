@@ -37,4 +37,4 @@ Known Issues / Gotcha
 
 License
 ----------------------------------------------
-MIT (See LICENCE).
+MIT (See LICENSE).
