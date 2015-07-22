@@ -1,4 +1,4 @@
-package com.metaco.client.entity;
+package com.metaco.client.contracts;
 
 import java.util.ArrayList;
 import java.util.List;

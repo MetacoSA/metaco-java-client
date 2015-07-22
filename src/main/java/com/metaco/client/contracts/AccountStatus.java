@@ -1,4 +1,4 @@
-package com.metaco.client.entity;
+package com.metaco.client.contracts;
 
 import java.math.BigDecimal;
 

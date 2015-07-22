@@ -1,6 +1,4 @@
-package com.metaco.client.entity;
-
-import com.metaco.client.entity.AssetHistory;
+package com.metaco.client.contracts;
 
 public class AssetsHistoryResult {
     private Integer timestamp;

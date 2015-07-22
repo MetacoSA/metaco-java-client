@@ -1,4 +1,4 @@
-package com.metaco.client.entity;
+package com.metaco.client.contracts;
 
 public class RawTransaction {
     private String raw;

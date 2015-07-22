@@ -1,7 +1,4 @@
-package com.metaco.client.entity;
-
-import com.metaco.client.entity.Balance;
-import com.metaco.client.entity.Transaction;
+package com.metaco.client.contracts;
 
 import java.util.ArrayList;
 import java.util.List;
