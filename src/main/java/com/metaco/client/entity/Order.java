@@ -7,9 +7,9 @@ public class Order {
     private String status;
     private String ticker;
     private String type;
-    private Integer amountSatoshi;
-    private Integer amountAsset;
-    private Boolean userHasSigned;
+    private Integer amount_satoshi;
+    private Integer amount_asset;
+    private Boolean user_has_signed;
     private TransactionToSign transaction;
 
     public Order() {
@@ -63,28 +63,28 @@ public class Order {
         this.type = type;
     }
 
-    public Integer getAmountSatoshi() {
-        return amountSatoshi;
+    public Integer getAmount_satoshi() {
+        return amount_satoshi;
     }
 
-    public void setAmountSatoshi(Integer amountSatoshi) {
-        this.amountSatoshi = amountSatoshi;
+    public void setAmount_satoshi(Integer amount_satoshi) {
+        this.amount_satoshi = amount_satoshi;
     }
 
-    public Integer getAmountAsset() {
-        return amountAsset;
+    public Integer getAmount_asset() {
+        return amount_asset;
     }
 
-    public void setAmountAsset(Integer amountAsset) {
-        this.amountAsset = amountAsset;
+    public void setAmount_asset(Integer amount_asset) {
+        this.amount_asset = amount_asset;
     }
 
-    public Boolean getUserHasSigned() {
-        return userHasSigned;
+    public Boolean getUser_has_signed() {
+        return user_has_signed;
     }
 
-    public void setUserHasSigned(Boolean userHasSigned) {
-        this.userHasSigned = userHasSigned;
+    public void setUser_has_signed(Boolean user_has_signed) {
+        this.user_has_signed = user_has_signed;
     }
 
     public TransactionToSign getTransaction() {

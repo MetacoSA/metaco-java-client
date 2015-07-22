@@ -59,7 +59,20 @@ public class MetacoClientImpl implements MetacoClient {
     public AssetsHistoryResult GetAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException  {
         HttpClient<AssetsHistoryResult> client = getHttpClient();
 
-        String tickersStr = (tickers == null || tickers.isEmpty()) ? "all" : String.join(",", tickers);
+        String tickersStr;
+
+        if (tickers != null && !tickers.isEmpty()) {
+            StringBuilder builder = new StringBuilder();
+            for(int i = 0 ; i < tickers.size() ; i ++ ){
+                builder.append(tickers.get(i));
+                if(i != tickers.size() - 1){
+                    builder.append(',');
+                }
+            }
+            tickersStr = builder.toString();
+        } else {
+            tickersStr = "all";
+        }
 
         return client.DoGet(String.format("/assets/history?tickers=%s&from=%d&to=%d&freq=%s&orderAsc=%s",
                 tickersStr, criteria.getFrom(), criteria.getTo(), criteria.getFreq(), criteria.getOrderAsc()),
