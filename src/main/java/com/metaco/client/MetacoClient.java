@@ -88,8 +88,24 @@ interface MetacoClient {
 
     Order CreateOrder(NewOrder createOrder) throws MetacoClientException;
 
-    List<Order> GetOrders() throws MetacoClientException;
+    /**
+     * Returns the user's orders
+     *
+     * @return The orders array
+     * @throws MetacoClientException
+     *
+     * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/list-all-orders">Online Documentation</a>
+     */
+    Order[] GetOrders() throws MetacoClientException;
 
+    /**
+     * Returns the specified user's order
+     *
+     * @return The order object
+     * @throws MetacoClientException
+     *
+     * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/retreive-an-order">Online Documentation</a>
+     */
     Order GetOrder(String id) throws MetacoClientException;
 
     Order SubmitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException;

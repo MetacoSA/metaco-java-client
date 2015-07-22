@@ -85,12 +85,16 @@ public class MetacoClientImpl implements MetacoClient {
         return null;
     }
 
-    public List<Order> GetOrders() throws MetacoClientException  {
-        return null;
+    public Order[] GetOrders() throws MetacoClientException  {
+        HttpClient<Order[]> client = getHttpClient();
+
+        return client.DoGet("orders", Order[].class);
     }
 
     public Order GetOrder(String id) throws MetacoClientException  {
-        return null;
+        HttpClient<Order> client = getHttpClient();
+
+        return client.DoGet(String.format("orders/%s", id), Order.class);
     }
 
     public Order SubmitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException  {
