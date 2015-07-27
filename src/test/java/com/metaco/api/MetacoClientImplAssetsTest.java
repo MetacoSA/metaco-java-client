@@ -25,9 +25,9 @@ public class MetacoClientImplAssetsTest {
     public void clientCanGetAsset() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
-        Asset asset = client.getAsset("DKY:USD");
+        Asset asset = client.getAsset("MTC:USD");
         Assert.assertNotNull(asset);
-        Assert.assertEquals(asset.getDefinition().getTicker(), "DKY:USD");
+        Assert.assertEquals(asset.getDefinition().getTicker(), "MTC:USD");
     }
 
     @Test
