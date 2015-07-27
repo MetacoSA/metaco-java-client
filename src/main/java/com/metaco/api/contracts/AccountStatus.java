@@ -6,7 +6,8 @@ public class AccountStatus {
     private String apiId;
     private Boolean KYC1;
     private Boolean KYC2;
-    private BigDecimal remaining;
+    public MaxYearlyChfOrder max_yearly_chf_order;
+    private BigDecimal max_order_chf_value;
 
     public AccountStatus() {
     }
@@ -35,11 +36,19 @@ public class AccountStatus {
         this.KYC2 = KYC2;
     }
 
-    public BigDecimal getRemaining() {
-        return remaining;
+    public BigDecimal getMax_order_chf_value() {
+        return max_order_chf_value;
     }
 
-    public void setRemaining(BigDecimal remaining) {
-        this.remaining = remaining;
+    public void setMax_order_chf_value(BigDecimal max_order_chf_value) {
+        this.max_order_chf_value = max_order_chf_value;
+    }
+
+    public MaxYearlyChfOrder getMax_yearly_chf_order() {
+        return max_yearly_chf_order;
+    }
+
+    public void setMax_yearly_chf_order(MaxYearlyChfOrder max_yearly_chf_order) {
+        this.max_yearly_chf_order = max_yearly_chf_order;
     }
 }

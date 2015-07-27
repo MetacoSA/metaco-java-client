@@ -11,9 +11,49 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 public class MetacoClientImplAccountTest {
+    @Test
+    public void clientCanRegisterAndValidateAccount() throws MetacoClientException {
+        MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
+
+        /** Account registration **/
+        RegisterAccountRequest registerAccountRequest = new RegisterAccountRequest();
+        registerAccountRequest.setPhone("+15005550006");
+
+        AccountRegistrationResult result = client.registerAccount(registerAccountRequest);
+        Assert.assertNotNull(result.getApiId());
+
+        String validationCode = client.getLatestDebugData();
+
+        /** Account Validation **/
+        client = TestUtils.GetMetacoAnonymousClientTestBuilder()
+                .withApiId(result.getApiId())
+                .withApiKey(result.getApiKey())
+                .makeClient();
+
+        ValidateAccountRequest validateAccountRequest = new ValidateAccountRequest();
+        validateAccountRequest.setCode(validationCode);
+
+        client.confirmPhoneNumber(validateAccountRequest);
+
+        /** Account Check **/
+        AccountStatus status = client.getAccountStatus();
+
+        Assert.assertTrue(status.getKYC1());
+
+        /** Can't double validate account **/
+        try {
+            ValidateAccountRequest doubleValidationRequest = new ValidateAccountRequest();
+            validateAccountRequest.setCode(validationCode);
+
+            client.confirmPhoneNumber(doubleValidationRequest);
+        } catch (MetacoClientException e) {
+            Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.PhoneConfirmationNotFound);
+        }
+    }
+
 
     @Test
-    public void clientCantRegisterAndValidateAccount() {
+    public void clientCantRegisterAccount() {
         try {
             MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
@@ -25,42 +65,6 @@ public class MetacoClientImplAccountTest {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.SmsSendingFailed);
         }
     }
-    @Test
-    public void clientCantValidateAccountAfterValidation() {
-        try {
-            MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
-                    .makeClient();
-
-            ValidateAccountRequest validateAccountRequest = new ValidateAccountRequest();
-            validateAccountRequest.setCode("RandomCode");
-
-            client.confirmPhoneNumber(validateAccountRequest);
-        } catch (MetacoClientException e) {
-            Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.Unauthorized);
-        }
-    }
-
-    //TODO: We need an update of the API to support this call in testing
-    //@Test
-    public void clientCanRegisterAndValidateAccount() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
-
-        RegisterAccountRequest registerAccountRequest = new RegisterAccountRequest();
-        registerAccountRequest.setPhone("+00000000000");
-
-        AccountRegistrationResult result = client.registerAccount(registerAccountRequest);
-        Assert.assertNotNull(result.getApiId());
-
-        client = TestUtils.GetMetacoAnonymousClientTestBuilder()
-                .withApiId(result.getApiId())
-                .withApiKey(result.getApiKey())
-                .makeClient();
-
-        ValidateAccountRequest validateAccountRequest = new ValidateAccountRequest();
-        validateAccountRequest.setCode("TODO: The code");
-
-        client.confirmPhoneNumber(validateAccountRequest);
-    }
 
     @Test
     public void clientCantGetAccountStatus() {
@@ -71,14 +75,5 @@ public class MetacoClientImplAccountTest {
         } catch (MetacoClientException e) {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.Unauthorized);
         }
-    }
-
-    @Test
-    public void clientCanGetAccountStatus() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder().makeClient();
-
-        AccountStatus status = client.getAccountStatus();
-
-        Assert.assertNotNull(status.getApiId());
     }
 }

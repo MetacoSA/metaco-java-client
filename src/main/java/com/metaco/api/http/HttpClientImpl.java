@@ -10,7 +10,7 @@ import com.sun.jersey.api.client.WebResource;
 
 import javax.ws.rs.core.MediaType;
 
-public class HttpClientImpl<T> implements HttpClient<T> {
+public class HttpClientImpl implements HttpClient {
 
     private String metacoApiId;
     private String metacoApiKey;
@@ -24,11 +24,7 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         this.metacoTestingMode = metacoTestingMode;
     }
 
-    public void doPost(String uri, Object data) throws MetacoClientException {
-        doPost(uri, data, null);
-    }
-
-    public T doPost(String url, Object data, Class<T> typeClass) throws MetacoClientException {
+    public ClientResponse doPost(String url, Object data) throws MetacoClientException {
         Client client = Client.create();
 
         String jsonEntity = new Gson().toJson(data);
@@ -42,16 +38,14 @@ public class HttpClientImpl<T> implements HttpClient<T> {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .post(ClientResponse.class);
 
-        String json =  response.getEntity(String.class);
-
         if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
-            ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+            HandleError(response);
         }
 
-        return new Gson().fromJson(json, typeClass);
+        return response;
     }
 
-    public T doGet(String url, Class<T> typeClass) throws MetacoClientException {
+    public ClientResponse doGet(String url) throws MetacoClientException {
         Client client = Client.create();
 
         WebResource webResource = client.resource(GetUrl(url));
@@ -62,16 +56,14 @@ public class HttpClientImpl<T> implements HttpClient<T> {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get(ClientResponse.class);
 
-        String json =  response.getEntity(String.class);
-
         if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
-            ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+            HandleError(response);
         }
 
-        return new Gson().fromJson(json, typeClass);
+        return response;
     }
 
-    public T doPut(String url, Object data, Class<T> typeClass) throws MetacoClientException {
+    public ClientResponse doPut(String url, Object data) throws MetacoClientException {
         Client client = Client.create();
 
         String jsonEntity = new Gson().toJson(data);
@@ -85,20 +77,14 @@ public class HttpClientImpl<T> implements HttpClient<T> {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .put(ClientResponse.class);
 
-        String json =  response.getEntity(String.class);
-
         if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
-            ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+            HandleError(response);
         }
 
-        return new Gson().fromJson(json, typeClass);
+        return response;
     }
 
-    public void doDelete(String uri) throws MetacoClientException {
-        doDelete(uri, null);
-    }
-
-    public T doDelete(String url, Class<T> typeClass) throws MetacoClientException {
+    public ClientResponse doDelete(String url) throws MetacoClientException {
 
         Client client = Client.create();
 
@@ -109,21 +95,12 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         ClientResponse response = builder
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .delete(ClientResponse.class);
-        String json;
-        try {
-            json =  response.getEntity(String.class);
-        } catch (Exception e) {
-            json = null;
-        }
 
         if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
-            ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+            HandleError(response);
         }
-        if (json == null || typeClass == null) {
-            return null;
-        } else {
-            return new Gson().fromJson(json, typeClass);
-        }
+
+        return response;
     }
 
     private String GetUrl(String relativeUrl) {
@@ -140,9 +117,19 @@ public class HttpClientImpl<T> implements HttpClient<T> {
         }
 
         if (this.metacoTestingMode != null && this.metacoTestingMode) {
-            builder.header("X-Metaco-Testing-Mode", this.metacoApiKey);
+            builder.header("X-Metaco-Debug", true);
         }
 
         return builder;
+    }
+
+    private void HandleError(ClientResponse response) throws MetacoClientException {
+        String json;
+        try {
+            json =  response.getEntity(String.class);
+        } catch (Exception e) {
+            json = null;
+        }
+        ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
     }
 }

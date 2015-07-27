@@ -169,4 +169,11 @@ interface MetacoClient {
      * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/transaction-broadcast/fetch-wallet-information">Online Documentation</a>
      */
     WalletDetails getWalletDetails(List<String> addresses) throws MetacoClientException;
+
+    /**
+     * For testing purposes only
+     * On some requests, when you use the TestingMode of the client, you will get a DebugData, which will simplify the testing of the API and the client
+     * As an example, a debugData could be the fake validationCode when your register an account.
+     */
+    String getLatestDebugData();
 }

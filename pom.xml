@@ -7,6 +7,28 @@
     <groupId>com.metaco.api</groupId>
     <artifactId>metaco-java-client</artifactId>
     <version>1.0.0</version>
+
+    <name>Metaco API Client for Java</name>
+    <description>Metaco REST API provides a set of services to integrate Metaco into third-party applications. It offers trading and payment facilities as well as wallet management features.</description>
+    <url>https://metaco.com</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Metaco</name>
+        <url>https://metaco.com</url>
+    </organization>
+
+    <scm>
+        <url>https://github.com/MetacoSA/metaco-java-client</url>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
