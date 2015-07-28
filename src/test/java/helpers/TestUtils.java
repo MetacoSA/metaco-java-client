@@ -10,9 +10,6 @@ import org.bitcoinj.core.Transaction;
 import org.bitcoinj.crypto.TransactionSignature;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
-import org.bitcoinj.utils.BriefLogFormatter;
-import org.junit.Test;
-
 import javax.xml.bind.DatatypeConverter;
 import java.util.Map;
 
@@ -61,9 +58,6 @@ public class TestUtils {
     }
 
     public static String GetHexSignedTransaction(TransactionToSign txToSign) {
-        BriefLogFormatter.init();
-        Context.getOrCreate(NetworkParameters.fromID(NetworkParameters.ID_TESTNET));
-
         Map<String, String> env = System.getenv();
         String walletPrivateKey = env.get(METACO_ENV_WALLET_PRIVATE_KEY_HEX_NAME);
 

@@ -12,20 +12,29 @@ import java.util.List;
 
 public class MetacoClientImplTransactionsTest {
     @Test
-    public void clientCanCreateTransaction() throws MetacoClientException {
+    public void clientCanProcessTransaction() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
                 .makeClient();
 
         NewTransaction newTransaction = new NewTransaction();
-        newTransaction.setTicker("DKY:USD");
-        newTransaction.setAmount_asset(10);
-        newTransaction.setFrom("akGDsn4LYKKrMKWczpWGSkR826MgcHgvBTR");
-        newTransaction.setTo("akGH9z9R9w6uKBV6PmhWMsaUhiGUnrQZhJg");
+        newTransaction.setTicker("MTC:USD");
+        newTransaction.setAmount_asset(1);
+        newTransaction.setFrom(TestUtils.GetBitcoinAddress());
+        newTransaction.setTo(TestUtils.GetBitcoinAddress());
         TransactionToSign created;
+
         created = client.createTransaction(newTransaction);
         Assert.assertNotNull(created);
         Assert.assertNotNull(created.getRaw());
-        Assert.assertEquals(created.getInputs_to_sign().get(0).getSigning_address(), "16FzXtXCqqxfTGTdmtAG6ZDSkkWSCjXcQM");
+        Assert.assertEquals(created.getInputs_to_sign().get(0).getSigning_address(), TestUtils.GetBitcoinAddress());
+
+        RawTransaction rawTx = new RawTransaction();
+
+        rawTx.setRaw(TestUtils.GetHexSignedTransaction(created));
+
+        TransactionBroadcastResult result = client.broadcastTransaction(rawTx);
+
+        Assert.assertTrue(result.isSuccess());
     }
 
     @Test public void clientCantBroadcastTransaction() {
@@ -47,10 +56,10 @@ public class MetacoClientImplTransactionsTest {
                 .makeClient();
 
         List<String> addresses = new ArrayList<String>();
-        addresses.add("16FzXtXCqqxfTGTdmtAG6ZDSkkWSCjXcQM");
+        addresses.add(TestUtils.GetBitcoinAddress());
 
         WalletDetails walletDetails = client.getWalletDetails(addresses);
         Assert.assertNotNull(walletDetails);
-        Assert.assertEquals(walletDetails.getAddresses().get(0), "16FzXtXCqqxfTGTdmtAG6ZDSkkWSCjXcQM");
+        Assert.assertEquals(walletDetails.getAddresses().get(0), TestUtils.GetBitcoinAddress());
     }
 }

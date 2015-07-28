@@ -101,10 +101,10 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, Order.class);
     }
 
-    public Order[] getOrders() throws MetacoClientException  {
+    public OrderResultPage getOrders() throws MetacoClientException  {
         ClientResponse response = httpClient.doGet("orders");
 
-        return DeserializationUtils.ToObject(response, Order[].class);
+        return DeserializationUtils.ToObject(response, OrderResultPage.class);
     }
 
     public Order getOrder(String id) throws MetacoClientException  {

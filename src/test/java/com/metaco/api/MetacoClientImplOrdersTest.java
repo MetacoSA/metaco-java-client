@@ -1,9 +1,6 @@
 package com.metaco.api;
 
-import com.metaco.api.contracts.NewOrder;
-import com.metaco.api.contracts.Order;
-import com.metaco.api.contracts.RawTransaction;
-import com.metaco.api.contracts.WalletDetails;
+import com.metaco.api.contracts.*;
 import com.metaco.api.exceptions.MetacoClientException;
 import com.metaco.api.exceptions.MetacoErrorsDefinitions;
 import com.metaco.api.http.HttpClient;
@@ -20,48 +17,52 @@ public class MetacoClientImplOrdersTest {
 
     @Test
     public void clientCanProcessOrder() throws MetacoClientException, InterruptedException {
-        MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
-                .makeClient();
+        try {
+            MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
+                    .makeClient();
 
-        NewOrder newOrder = new NewOrder();
-        newOrder.setAmount_asset(1);
-        newOrder.setChange("");
-        List<String> funding = new ArrayList<String>();
-        funding.add(TestUtils.GetBitcoinAddress());
-        newOrder.setFunding(funding);
-        newOrder.setRecipient(TestUtils.GetBitcoinAddress());
-        newOrder.setTicker("MTC:USD");
-        newOrder.setType("bid");
+            NewOrder newOrder = new NewOrder();
+            newOrder.setAmount_asset(1);
+            newOrder.setChange("");
+            List<String> funding = new ArrayList<String>();
+            funding.add(TestUtils.GetBitcoinAddress());
+            newOrder.setFunding(funding);
+            newOrder.setRecipient(TestUtils.GetBitcoinAddress());
+            newOrder.setTicker("MTC:USD");
+            newOrder.setType("bid");
 
-        Order created = client.createOrder(newOrder);
-        Assert.assertNotNull(created);
-        Assert.assertNotNull(created.getAmount_asset());
-        Assert.assertEquals((int) created.getAmount_asset(), 1);
+            Order created = client.createOrder(newOrder);
+            Assert.assertNotNull(created);
+            Assert.assertNotNull(created.getAmount_asset());
+            Assert.assertEquals((int) created.getAmount_asset(), 1);
 
-        Order orderToSign = WaitForOrderState(client, created.getId(), "Signing");
-        if (orderToSign == null) {
-            Assert.fail("Order took to long to go to Signing state");
+            Order orderToSign = WaitForOrderState(client, created.getId(), "Signing");
+            if (orderToSign == null) {
+                Assert.fail("Order took to long to go to Signing state");
+            }
+
+            /** Signing and submit **/
+            RawTransaction rawTx = new RawTransaction();
+
+            rawTx.setRaw(TestUtils.GetHexSignedTransaction(orderToSign.getTransaction()));
+
+            client.submitSignedOrder(orderToSign.getId(), rawTx);
+
+            /** Wait for broadcasting **/
+            Order unconfirmed = WaitForOrderState(client, created.getId(), "Unconfirmed");
+            if (unconfirmed == null) {
+                Assert.fail("Order took to long to go to Unsigned state");
+            }
+
+            Assert.assertEquals(1, (int)unconfirmed.getAmount_asset());
+
+            /** Fetch all the orders **/
+
+            OrderResultPage orders = client.getOrders();
+            Assert.assertEquals(created.getId(), orders.getOrders()[0].getId());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        /** Signing and submit **/
-        RawTransaction rawTx = new RawTransaction();
-
-        rawTx.setRaw(TestUtils.GetHexSignedTransaction(orderToSign.getTransaction()));
-
-        client.submitSignedOrder(orderToSign.getId(), rawTx);
-
-        /** Wait for broadcasting **/
-        Order unconfirmed = WaitForOrderState(client, created.getId(), "Unconfirmed");
-        if (unconfirmed == null) {
-            Assert.fail("Order took to long to go to Unsigned state");
-        }
-
-        Assert.assertEquals(1, (int)unconfirmed.getAmount_asset());
-
-        /** Fetch all the orders **/
-
-        Order[] orders = client.getOrders();
-        Assert.assertEquals(created.getId(), orders[0].getId());
     }
 
     @Test

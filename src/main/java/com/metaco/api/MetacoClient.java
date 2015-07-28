@@ -102,7 +102,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/list-all-orders">Online Documentation</a>
      */
-    Order[] getOrders() throws MetacoClientException;
+    OrderResultPage getOrders() throws MetacoClientException;
 
     /**
      * Requires Authentication
