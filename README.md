@@ -17,10 +17,13 @@ You can use our [Unit tests](https://github.com/MetacoSA/metaco-java-client/tree
 
 Testing
 ----------------------------------------------
+The tests requires a testnet environnement to work.
+
 Define the following environment variables :
-* DEFAULT_API_KEY : Your testnet API key
-* DEFAULT_API_ID : Your testnet API ID
-* DEFAULT_API_URL : http://api.testnet.metaco.com/v1/ (Or the endpoint you want to run your tests with)
+* METACO_ENV_API_ID : Your testnet API ID
+* METACO_ENV_API_KEY : Your testnet API Key
+* METACO_ENV_API_URL : http://api.testnet.metaco.com/v1/ (Or the endpoint you want to run your tests with)
+* METACO_ENV_WALLET_PRIVATE_KEY_HEX : The private key of your testnet wallet (hex-encoded)
 
 Run `mvn clean test`
 
@@ -33,7 +36,7 @@ Contributing
 
 Known Issues / Gotcha
 ----------------------------------------------
-* The current tests does not cover every cases, we will update them when our testnet environment will be ready.
+* The api is still unstable.
 
 License
 ----------------------------------------------
