@@ -3,7 +3,20 @@ package com.metaco.api.utils;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+
 public class HttpUtilsTest {
+    @Test
+    public void testPrivateConstructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Constructor constructor = HttpUtils.class.getDeclaredConstructor();
+        Assert.assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
+
+        constructor.setAccessible(true);
+        constructor.newInstance();
+    }
+
     @Test
     public void utilsCanDetectInvalidStatusCode() {
         Assert.assertFalse(HttpUtils.IsSuccessStatusCode(100));

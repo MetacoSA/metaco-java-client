@@ -69,7 +69,7 @@ public class TestUtils {
 
         Transaction tx = new Transaction(networkParameters, Hex.decode(txToSign.getRaw()));
 
-        for(InputsToSign inputsToSign : txToSign.getInputs_to_sign()) {
+        for(InputsToSign inputsToSign : txToSign.getInputsToSign()) {
             Sha256Hash sigHash = tx.hashForSignature(inputsToSign.getIndex(), scriptPubKey, Transaction.SigHash.ALL, false);
 
             ECKey.ECDSASignature sig = key.sign(sigHash);

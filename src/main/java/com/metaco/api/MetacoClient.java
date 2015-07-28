@@ -168,7 +168,7 @@ interface MetacoClient {
      *
      * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/transaction-broadcast/fetch-wallet-information">Online Documentation</a>
      */
-    WalletDetails getWalletDetails(List<String> addresses) throws MetacoClientException;
+    WalletDetails getWalletDetails(String address) throws MetacoClientException;
 
     /**
      * For testing purposes only

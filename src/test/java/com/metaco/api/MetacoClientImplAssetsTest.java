@@ -34,8 +34,8 @@ public class MetacoClientImplAssetsTest {
     public void clientCanGetAssetsHistory() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
-        long currentTimestamp = System.currentTimeMillis() / 1000;
-        long timestampThirtyMinutesAgo = currentTimestamp - (30 * 60);
+        Integer currentTimestamp = (int)(System.currentTimeMillis() / 1000);
+        Integer timestampThirtyMinutesAgo = currentTimestamp - (30 * 60);
 
         HistoryCriteria criteria = new HistoryCriteria(timestampThirtyMinutesAgo, currentTimestamp, "10m", false);
 
@@ -48,8 +48,8 @@ public class MetacoClientImplAssetsTest {
     public void clientCanGetSpecificAssetsHistory() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAnonymousClientTestBuilder().makeClient();
 
-        long currentTimestamp = System.currentTimeMillis() / 1000;
-        long timestampThirtyMinutesAgo = currentTimestamp - (30 * 60);
+        Integer currentTimestamp = (int)(System.currentTimeMillis() / 1000);
+        Integer timestampThirtyMinutesAgo = currentTimestamp - (30 * 60);
 
         HistoryCriteria criteria = new HistoryCriteria(timestampThirtyMinutesAgo, currentTimestamp, "10m", false);
 

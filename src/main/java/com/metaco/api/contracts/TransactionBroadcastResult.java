@@ -1,7 +1,11 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TransactionBroadcastResult {
+    @SerializedName("success")
     private boolean success;
+    @SerializedName("error")
     private BroadcastError error;
 
     public TransactionBroadcastResult() {

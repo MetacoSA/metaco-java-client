@@ -1,71 +1,82 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.math.BigDecimal;
+
 public class Market {
 
-    private Double bid;
-    private Double ask;
-    private Double volumeDaily;
-    private Double yieldDaily;
-    private Double yieldYTD;
-    private Double volatilityDaily;
-    private Integer issued;
+    @SerializedName("bid")
+    private BigDecimal bid;
+    @SerializedName("ask")
+    private BigDecimal ask;
+    @SerializedName("volume_daily")
+    private BigDecimal volumeDaily;
+    @SerializedName("yield_daily")
+    private BigDecimal yieldDaily;
+    @SerializedName("yield_YTD")
+    private BigDecimal yieldYTD;
+    @SerializedName("volatility_daily")
+    private BigDecimal volatilityDaily;
+    @SerializedName("issued")
+    private Double issued;
 
     public Market() {
     }
 
-    public Double getBid() {
+    public BigDecimal getBid() {
         return bid;
     }
 
-    public void setBid(Double bid) {
+    public void setBid(BigDecimal bid) {
         this.bid = bid;
     }
 
-    public Double getAsk() {
+    public BigDecimal getAsk() {
         return ask;
     }
 
-    public void setAsk(Double ask) {
+    public void setAsk(BigDecimal ask) {
         this.ask = ask;
     }
 
-    public Double getVolumeDaily() {
+    public BigDecimal getVolumeDaily() {
         return volumeDaily;
     }
 
-    public void setVolumeDaily(Double volumeDaily) {
+    public void setVolumeDaily(BigDecimal volumeDaily) {
         this.volumeDaily = volumeDaily;
     }
 
-    public Double getYieldDaily() {
+    public BigDecimal getYieldDaily() {
         return yieldDaily;
     }
 
-    public void setYieldDaily(Double yieldDaily) {
+    public void setYieldDaily(BigDecimal yieldDaily) {
         this.yieldDaily = yieldDaily;
     }
 
-    public Double getYieldYTD() {
+    public BigDecimal getYieldYTD() {
         return yieldYTD;
     }
 
-    public void setYieldYTD(Double yieldYTD) {
+    public void setYieldYTD(BigDecimal yieldYTD) {
         this.yieldYTD = yieldYTD;
     }
 
-    public Double getVolatilityDaily() {
+    public BigDecimal getVolatilityDaily() {
         return volatilityDaily;
     }
 
-    public void setVolatilityDaily(Double volatilityDaily) {
+    public void setVolatilityDaily(BigDecimal volatilityDaily) {
         this.volatilityDaily = volatilityDaily;
     }
 
-    public Integer getIssued() {
+    public Double getIssued() {
         return issued;
     }
 
-    public void setIssued(Integer issued) {
+    public void setIssued(Double issued) {
         this.issued = issued;
     }
 }

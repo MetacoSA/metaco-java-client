@@ -38,7 +38,7 @@ public class MetacoClientImplAccountTest {
         /** Account Check **/
         AccountStatus status = client.getAccountStatus();
 
-        Assert.assertTrue(status.getKYC1());
+        Assert.assertTrue(status.getKyc1());
 
         /** Can't double validate account **/
         try {

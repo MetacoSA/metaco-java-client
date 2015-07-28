@@ -1,14 +1,24 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WalletDetails {
+    @SerializedName("timestamp")
     private Integer timestamp;
+    @SerializedName("page")
+    private PageDetails pageDetails;
+    @SerializedName("addresses")
     private List<String> addresses = new ArrayList<String>();
-    private Integer value;
-    private Integer balance_bitcoin;
+    @SerializedName("value")
+    private Long value;
+    @SerializedName("balance_bitcoin")
+    private Long balanceBitcoin;
+    @SerializedName("balances")
     private List<Balance> balances = new ArrayList<Balance>();
+    @SerializedName("transactions")
     private List<Transaction> transactions = new ArrayList<Transaction>();
 
     public WalletDetails() {
@@ -30,22 +40,6 @@ public class WalletDetails {
         this.addresses = addresses;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    public Integer getBalance_bitcoin() {
-        return balance_bitcoin;
-    }
-
-    public void setBalance_bitcoin(Integer balance_bitcoin) {
-        this.balance_bitcoin = balance_bitcoin;
-    }
-
     public List<Balance> getBalances() {
         return balances;
     }
@@ -60,5 +54,29 @@ public class WalletDetails {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public PageDetails getPageDetails() {
+        return pageDetails;
+    }
+
+    public void setPageDetails(PageDetails pageDetails) {
+        this.pageDetails = pageDetails;
+    }
+
+    public Long getValue() {
+        return value;
+    }
+
+    public void setValue(Long value) {
+        this.value = value;
+    }
+
+    public Long getBalanceBitcoin() {
+        return balanceBitcoin;
+    }
+
+    public void setBalanceBitcoin(Long balanceBitcoin) {
+        this.balanceBitcoin = balanceBitcoin;
     }
 }

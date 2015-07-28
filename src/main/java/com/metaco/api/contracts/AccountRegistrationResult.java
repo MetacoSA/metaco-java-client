@@ -1,7 +1,11 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AccountRegistrationResult {
+    @SerializedName("apiId")
     private String apiId;
+    @SerializedName("apiKey")
     private String apiKey;
 
     public AccountRegistrationResult() {

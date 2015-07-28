@@ -1,14 +1,25 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Transaction {
+    @SerializedName("created")
     private Integer created;
+    @SerializedName("ticker")
     private String ticker;
+    @SerializedName("type")
     private String type;
+    @SerializedName("confirmations")
     private Integer confirmations;
-    private Integer amount_asset;
-    private Integer amount_satoshi;
+    @SerializedName("amount_asset")
+    private Long amountAsset;
+    @SerializedName("amount_satoshi")
+    private Long amountSatoshi;
+    @SerializedName("tx_hash")
     private String tx_hash;
-    private Integer feePaid;
+    @SerializedName("feePaid")
+    private Long feePaid;
+    @SerializedName("order")
     private Order order;
 
     public Transaction() {
@@ -46,20 +57,20 @@ public class Transaction {
         this.confirmations = confirmations;
     }
 
-    public Integer getAmount_asset() {
-        return amount_asset;
+    public Long getAmountAsset() {
+        return amountAsset;
     }
 
-    public void setAmount_asset(Integer amount_asset) {
-        this.amount_asset = amount_asset;
+    public void setAmountAsset(Long amountAsset) {
+        this.amountAsset = amountAsset;
     }
 
-    public Integer getAmount_satoshi() {
-        return amount_satoshi;
+    public Long getAmountSatoshi() {
+        return amountSatoshi;
     }
 
-    public void setAmount_satoshi(Integer amount_satoshi) {
-        this.amount_satoshi = amount_satoshi;
+    public void setAmountSatoshi(Long amountSatoshi) {
+        this.amountSatoshi = amountSatoshi;
     }
 
     public String getTx_hash() {
@@ -70,11 +81,11 @@ public class Transaction {
         this.tx_hash = tx_hash;
     }
 
-    public Integer getFeePaid() {
+    public Long getFeePaid() {
         return feePaid;
     }
 
-    public void setFeePaid(Integer feePaid) {
+    public void setFeePaid(Long feePaid) {
         this.feePaid = feePaid;
     }
 

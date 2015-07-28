@@ -1,15 +1,26 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewOrder {
-    private String ticker;
-    private Integer amount_asset;
-    private String recipient;
-    private List<String> funding = new ArrayList<String>();
-    private String change;
+    @SerializedName("type")
     private String type;
+    @SerializedName("ticker")
+    private String ticker;
+    @SerializedName("amount_asset")
+    private Long amountAsset;
+    @SerializedName("amount_satoshi")
+    private Long amountSatoshi;
+    @SerializedName("recipient")
+    private String recipient;
+    @SerializedName("funding")
+    private List<String> funding = new ArrayList<String>();
+    @SerializedName("change")
+    private String change;
+    @SerializedName("webhook")
     private String webhook;
 
     public NewOrder() {
@@ -23,12 +34,12 @@ public class NewOrder {
         this.ticker = ticker;
     }
 
-    public Integer getAmount_asset() {
-        return amount_asset;
+    public Long getAmountAsset() {
+        return amountAsset;
     }
 
-    public void setAmount_asset(Integer amount_asset) {
-        this.amount_asset = amount_asset;
+    public void setAmountAsset(Long amountAsset) {
+        this.amountAsset = amountAsset;
     }
 
     public String getRecipient() {
@@ -69,5 +80,13 @@ public class NewOrder {
 
     public void setWebhook(String webhook) {
         this.webhook = webhook;
+    }
+
+    public Long getAmountSatoshi() {
+        return amountSatoshi;
+    }
+
+    public void setAmountSatoshi(Long amountSatoshi) {
+        this.amountSatoshi = amountSatoshi;
     }
 }

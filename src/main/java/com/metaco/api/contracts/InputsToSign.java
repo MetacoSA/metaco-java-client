@@ -1,8 +1,12 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class InputsToSign {
+    @SerializedName("index")
     private Integer index;
-    private String signing_address;
+    @SerializedName("signing_address")
+    private String signingAddress;
 
     public InputsToSign() {
     }
@@ -15,11 +19,11 @@ public class InputsToSign {
         this.index = index;
     }
 
-    public String getSigning_address() {
-        return signing_address;
+    public String getSigningAddress() {
+        return signingAddress;
     }
 
-    public void setSigning_address(String signing_address) {
-        this.signing_address = signing_address;
+    public void setSigningAddress(String signingAddress) {
+        this.signingAddress = signingAddress;
     }
 }

@@ -1,7 +1,11 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AssetsHistoryResult {
+    @SerializedName("timestamp")
     private Integer timestamp;
+    @SerializedName("assets")
     private AssetHistory[] assets;
 
     public AssetsHistoryResult() {

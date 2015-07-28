@@ -133,11 +133,11 @@ public class MetacoClientImpl implements MetacoClient {
         StringBuilder queryStringBuilder = new StringBuilder();
         queryStringBuilder.append("?");
 
-        if (newTransaction.getAmount_asset() != null) {
-            queryStringBuilder.append(String.format("amount_asset=%d&", newTransaction.getAmount_asset()));
+        if (newTransaction.getAmountAsset() != null) {
+            queryStringBuilder.append(String.format("amount_asset=%d&", newTransaction.getAmountAsset()));
         }
-        if (newTransaction.getAmount_satoshi() != null) {
-            queryStringBuilder.append(String.format("amount_satoshi=%d&", newTransaction.getAmount_satoshi()));
+        if (newTransaction.getAmountSatoshi() != null) {
+            queryStringBuilder.append(String.format("amount_satoshi=%d&", newTransaction.getAmountSatoshi()));
         }
         if (newTransaction.getChange() != null) {
             queryStringBuilder.append(String.format("change=%s&", newTransaction.getChange()));
@@ -171,17 +171,8 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, TransactionBroadcastResult.class);
     }
 
-    public WalletDetails getWalletDetails(List<String> addresses) throws MetacoClientException {
-
-        StringBuilder builder = new StringBuilder();
-        for(int i = 0 ; i < addresses.size() ; i ++ ){
-            builder.append(addresses.get(i));
-            if(i != addresses.size() - 1){
-                builder.append(',');
-            }
-        }
-
-        ClientResponse response = httpClient.doGet(String.format("transactions/%s", builder));
+    public WalletDetails getWalletDetails(String address) throws MetacoClientException {
+        ClientResponse response = httpClient.doGet(String.format("transactions/%s", address));
 
         HandleDebugData(response);
 

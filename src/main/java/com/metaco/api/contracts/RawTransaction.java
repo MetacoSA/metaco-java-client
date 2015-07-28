@@ -1,6 +1,9 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RawTransaction {
+    @SerializedName("raw")
     private String raw;
 
     public RawTransaction() {

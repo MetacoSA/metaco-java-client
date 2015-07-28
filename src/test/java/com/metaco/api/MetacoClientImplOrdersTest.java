@@ -2,12 +2,8 @@ package com.metaco.api;
 
 import com.metaco.api.contracts.*;
 import com.metaco.api.exceptions.MetacoClientException;
-import com.metaco.api.exceptions.MetacoErrorsDefinitions;
-import com.metaco.api.http.HttpClient;
-import com.sun.jersey.api.client.ClientResponse;
 import helpers.TestUtils;
 import junit.framework.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -22,7 +18,7 @@ public class MetacoClientImplOrdersTest {
                     .makeClient();
 
             NewOrder newOrder = new NewOrder();
-            newOrder.setAmount_asset(1);
+            newOrder.setAmountAsset(1L);
             newOrder.setChange("");
             List<String> funding = new ArrayList<String>();
             funding.add(TestUtils.GetBitcoinAddress());
@@ -33,8 +29,8 @@ public class MetacoClientImplOrdersTest {
 
             Order created = client.createOrder(newOrder);
             Assert.assertNotNull(created);
-            Assert.assertNotNull(created.getAmount_asset());
-            Assert.assertEquals((int) created.getAmount_asset(), 1);
+            Assert.assertNotNull(created.getAmountAsset());
+            Assert.assertEquals((long)created.getAmountAsset(), 1L);
 
             Order orderToSign = WaitForOrderState(client, created.getId(), "Signing");
             if (orderToSign == null) {
@@ -54,7 +50,7 @@ public class MetacoClientImplOrdersTest {
                 Assert.fail("Order took to long to go to Unsigned state");
             }
 
-            Assert.assertEquals(1, (int)unconfirmed.getAmount_asset());
+            Assert.assertEquals(1, (long)unconfirmed.getAmountAsset());
 
             /** Fetch all the orders **/
 
@@ -71,7 +67,7 @@ public class MetacoClientImplOrdersTest {
                 .makeClient();
 
         NewOrder newOrder = new NewOrder();
-        newOrder.setAmount_asset(1);
+        newOrder.setAmountAsset(1L);
         newOrder.setChange("");
         List<String> funding = new ArrayList<String>();
         funding.add(TestUtils.GetBitcoinAddress());
@@ -82,8 +78,8 @@ public class MetacoClientImplOrdersTest {
 
         Order created = client.createOrder(newOrder);
         Assert.assertNotNull(created);
-        Assert.assertNotNull(created.getAmount_asset());
-        Assert.assertEquals((int) created.getAmount_asset(), 1);
+        Assert.assertNotNull(created.getAmountAsset());
+        Assert.assertEquals((long)created.getAmountAsset(), 1);
 
         client.cancelOrder(created.getId());
 

@@ -1,7 +1,11 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class BroadcastError {
+    @SerializedName("code")
     private String code;
+    @SerializedName("reason")
     private String reason;
 
     public BroadcastError() {

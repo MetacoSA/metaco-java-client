@@ -1,11 +1,15 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionToSign {
+    @SerializedName("raw")
     private String raw;
-    private List<InputsToSign> inputs_to_sign = new ArrayList<InputsToSign>();
+    @SerializedName("inputs_to_sign")
+    private List<InputsToSign> inputsToSign = new ArrayList<InputsToSign>();
 
     public TransactionToSign() {
     }
@@ -18,11 +22,11 @@ public class TransactionToSign {
         this.raw = raw;
     }
 
-    public List<InputsToSign> getInputs_to_sign() {
-        return inputs_to_sign;
+    public List<InputsToSign> getInputsToSign() {
+        return inputsToSign;
     }
 
-    public void setInputs_to_sign(List<InputsToSign> inputs_to_sign) {
-        this.inputs_to_sign = inputs_to_sign;
+    public void setInputsToSign(List<InputsToSign> inputsToSign) {
+        this.inputsToSign = inputsToSign;
     }
 }

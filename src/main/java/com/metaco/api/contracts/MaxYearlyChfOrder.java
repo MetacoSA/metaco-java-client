@@ -1,36 +1,39 @@
 package com.metaco.api.contracts;
 
-import java.math.BigDecimal;
+import com.google.gson.annotations.SerializedName;
 
 public class MaxYearlyChfOrder {
-    private BigDecimal remaining;
-    private BigDecimal current;
-    private BigDecimal max;
+    @SerializedName("remaining")
+    private Long remaining;
+    @SerializedName("current")
+    private Long current;
+    @SerializedName("max")
+    private Long max;
 
     public MaxYearlyChfOrder() {
     }
 
-    public BigDecimal getRemaining() {
+    public Long getRemaining() {
         return remaining;
     }
 
-    public void setRemaining(BigDecimal remaining) {
+    public void setRemaining(Long remaining) {
         this.remaining = remaining;
     }
 
-    public BigDecimal getCurrent() {
+    public Long getCurrent() {
         return current;
     }
 
-    public void setCurrent(BigDecimal current) {
+    public void setCurrent(Long current) {
         this.current = current;
     }
 
-    public BigDecimal getMax() {
+    public Long getMax() {
         return max;
     }
 
-    public void setMax(BigDecimal max) {
+    public void setMax(Long max) {
         this.max = max;
     }
 }

@@ -1,14 +1,23 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigDecimal;
 
 public class NewTransaction {
+    @SerializedName("from")
     private String from;
+    @SerializedName("to")
     private String to;
+    @SerializedName("change")
     private String change;
+    @SerializedName("ticker")
     private String ticker;
-    private Integer amount_asset;
-    private Integer amount_satoshi;
+    @SerializedName("amount_asset")
+    private Integer amountAsset;
+    @SerializedName("amount_satoshi")
+    private Integer amountSatoshi;
+    @SerializedName("feePerKB")
     private BigDecimal feePerKB;
 
     public NewTransaction() {
@@ -38,20 +47,20 @@ public class NewTransaction {
         this.ticker = ticker;
     }
 
-    public Integer getAmount_asset() {
-        return amount_asset;
+    public Integer getAmountAsset() {
+        return amountAsset;
     }
 
-    public void setAmount_asset(Integer amount_asset) {
-        this.amount_asset = amount_asset;
+    public void setAmountAsset(Integer amountAsset) {
+        this.amountAsset = amountAsset;
     }
 
-    public Integer getAmount_satoshi() {
-        return amount_satoshi;
+    public Integer getAmountSatoshi() {
+        return amountSatoshi;
     }
 
-    public void setAmount_satoshi(Integer amount_satoshi) {
-        this.amount_satoshi = amount_satoshi;
+    public void setAmountSatoshi(Integer amountSatoshi) {
+        this.amountSatoshi = amountSatoshi;
     }
 
     public BigDecimal getFeePerKB() {

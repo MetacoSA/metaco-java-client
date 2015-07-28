@@ -1,12 +1,18 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class HistoryCriteria {
-    public long from;
-    private long to;
+    @SerializedName("from")
+    public Integer from;
+    @SerializedName("to")
+    private Integer to;
+    @SerializedName("freq")
     private String freq;
+    @SerializedName("orderAsc")
     private Boolean orderAsc;
 
-    public HistoryCriteria(long from, long to, String freq, Boolean orderAsc) {
+    public HistoryCriteria(Integer from, Integer to, String freq, Boolean orderAsc) {
         this.from = from;
         this.to = to;
         this.freq = freq;
@@ -17,7 +23,7 @@ public class HistoryCriteria {
         return from;
     }
 
-    public void setFrom(long from) {
+    public void setFrom(Integer from) {
         this.from = from;
     }
 
@@ -25,7 +31,7 @@ public class HistoryCriteria {
         return to;
     }
 
-    public void setTo(long to) {
+    public void setTo(Integer to) {
         this.to = to;
     }
 

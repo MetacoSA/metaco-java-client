@@ -1,13 +1,18 @@
 package com.metaco.api.contracts;
 
-import java.math.BigDecimal;
+import com.google.gson.annotations.SerializedName;
 
 public class AccountStatus {
+    @SerializedName("apiId")
     private String apiId;
-    private Boolean KYC1;
-    private Boolean KYC2;
-    public MaxYearlyChfOrder max_yearly_chf_order;
-    private BigDecimal max_order_chf_value;
+    @SerializedName("KYC1")
+    private Boolean Kyc1;
+    @SerializedName("KYC2")
+    private Boolean Kyc2;
+    @SerializedName("max_yearly_chf_order")
+    public MaxYearlyChfOrder maxYearlyChfOrder;
+    @SerializedName("max_order_chf_value")
+    private Long maxOrderChfValue;
 
     public AccountStatus() {
     }
@@ -20,35 +25,35 @@ public class AccountStatus {
         this.apiId = apiId;
     }
 
-    public Boolean getKYC1() {
-        return KYC1;
+    public Boolean getKyc1() {
+        return Kyc1;
     }
 
-    public void setKYC1(Boolean KYC1) {
-        this.KYC1 = KYC1;
+    public void setKyc1(Boolean kyc1) {
+        this.Kyc1 = kyc1;
     }
 
-    public Boolean getKYC2() {
-        return KYC2;
+    public Boolean getKyc2() {
+        return Kyc2;
     }
 
-    public void setKYC2(Boolean KYC2) {
-        this.KYC2 = KYC2;
+    public void setKyc2(Boolean kyc2) {
+        this.Kyc2 = kyc2;
     }
 
-    public BigDecimal getMax_order_chf_value() {
-        return max_order_chf_value;
+    public Long getMaxOrderChfValue() {
+        return maxOrderChfValue;
     }
 
-    public void setMax_order_chf_value(BigDecimal max_order_chf_value) {
-        this.max_order_chf_value = max_order_chf_value;
+    public void setMaxOrderChfValue(Long maxOrderChfValue) {
+        this.maxOrderChfValue = maxOrderChfValue;
     }
 
-    public MaxYearlyChfOrder getMax_yearly_chf_order() {
-        return max_yearly_chf_order;
+    public MaxYearlyChfOrder getMaxYearlyChfOrder() {
+        return maxYearlyChfOrder;
     }
 
-    public void setMax_yearly_chf_order(MaxYearlyChfOrder max_yearly_chf_order) {
-        this.max_yearly_chf_order = max_yearly_chf_order;
+    public void setMaxYearlyChfOrder(MaxYearlyChfOrder maxYearlyChfOrder) {
+        this.maxYearlyChfOrder = maxYearlyChfOrder;
     }
 }

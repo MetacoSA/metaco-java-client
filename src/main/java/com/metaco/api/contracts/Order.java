@@ -1,15 +1,27 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Order {
+    @SerializedName("id")
     private String id;
+    @SerializedName("created")
     private Integer created;
+    @SerializedName("expiration")
     private Integer expiration;
+    @SerializedName("status")
     private String status;
+    @SerializedName("ticker")
     private String ticker;
+    @SerializedName("type")
     private String type;
-    private Integer amount_satoshi;
-    private Integer amount_asset;
-    private Boolean user_has_signed;
+    @SerializedName("amount_satoshi")
+    private Long amountSatoshi;
+    @SerializedName("amount_asset")
+    private Long amountAsset;
+    @SerializedName("user_has_signed")
+    private Boolean userHasSigned;
+    @SerializedName("transaction")
     private TransactionToSign transaction;
 
     public Order() {
@@ -63,28 +75,28 @@ public class Order {
         this.type = type;
     }
 
-    public Integer getAmount_satoshi() {
-        return amount_satoshi;
+    public Long getAmountSatoshi() {
+        return amountSatoshi;
     }
 
-    public void setAmount_satoshi(Integer amount_satoshi) {
-        this.amount_satoshi = amount_satoshi;
+    public void setAmountSatoshi(Long amountSatoshi) {
+        this.amountSatoshi = amountSatoshi;
     }
 
-    public Integer getAmount_asset() {
-        return amount_asset;
+    public Long getAmountAsset() {
+        return amountAsset;
     }
 
-    public void setAmount_asset(Integer amount_asset) {
-        this.amount_asset = amount_asset;
+    public void setAmountAsset(Long amountAsset) {
+        this.amountAsset = amountAsset;
     }
 
-    public Boolean getUser_has_signed() {
-        return user_has_signed;
+    public Boolean getUserHasSigned() {
+        return userHasSigned;
     }
 
-    public void setUser_has_signed(Boolean user_has_signed) {
-        this.user_has_signed = user_has_signed;
+    public void setUserHasSigned(Boolean userHasSigned) {
+        this.userHasSigned = userHasSigned;
     }
 
     public TransactionToSign getTransaction() {

@@ -1,28 +1,53 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 
 public class AssetHistory {
-    private String ticker;
-    private List<AssetHistoryPoint> history = new ArrayList<AssetHistoryPoint>();
+    @SerializedName("underlying")
+    private String underlying;
+    @SerializedName("quotes")
+    private List<Float> quotes = new ArrayList<Float>();
+    @SerializedName("times")
+    private List<Integer> times = new ArrayList<Integer>();
+    @SerializedName("volumes")
+    private List<Integer> volumes = new ArrayList<Integer>();
 
     public AssetHistory() {
     }
 
-    public String getTicker() {
-        return ticker;
+    public String getUnderlying() {
+        return underlying;
     }
 
-    public void setTicker(String ticker) {
-        this.ticker = ticker;
+    public void setUnderlying(String underlying) {
+        this.underlying = underlying;
     }
 
-    public List<AssetHistoryPoint> getHistory() {
-        return history;
+    public List<Float> getQuotes() {
+        return quotes;
     }
 
-    public void setHistory(List<AssetHistoryPoint> history) {
-        this.history = history;
+    public void setQuotes(List<Float> quotes) {
+        this.quotes = quotes;
+    }
+
+    public List<Integer> getTimes() {
+        return times;
+    }
+
+    public void setTimes(List<Integer> times) {
+        this.times = times;
+    }
+
+    public List<Integer> getVolumes() {
+        return volumes;
+    }
+
+    public void setVolumes(List<Integer> volumes) {
+        this.volumes = volumes;
     }
 }

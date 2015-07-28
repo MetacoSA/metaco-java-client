@@ -1,6 +1,9 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Kyc {
+    @SerializedName("required")
     private Boolean required;
 
     public Kyc() {

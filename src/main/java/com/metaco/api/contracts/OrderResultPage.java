@@ -1,7 +1,11 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class OrderResultPage {
+    @SerializedName("page")
     private PageDetails pageDetails;
+    @SerializedName("orders")
     private Order[] orders;
 
     public OrderResultPage() {

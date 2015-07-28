@@ -1,15 +1,26 @@
 package com.metaco.api.contracts;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Definition {
 
+    @SerializedName("ticker")
     private String ticker;
-    private Object display;
+    @SerializedName("display")
+    private String display;
+    @SerializedName("contract")
     private String contract;
+    @SerializedName("keywords")
     private String keywords;
+    @SerializedName("unit")
     private String unit;
+    @SerializedName("divisibility")
     private Integer divisibility;
+    @SerializedName("asset_id")
     private String assetId;
+    @SerializedName("issuer")
     private Issuer issuer;
+    @SerializedName("kyc")
     private Kyc kyc;
 
     public Definition() {
@@ -23,11 +34,11 @@ public class Definition {
         this.ticker = ticker;
     }
 
-    public Object getDisplay() {
+    public String getDisplay() {
         return display;
     }
 
-    public void setDisplay(Object display) {
+    public void setDisplay(String display) {
         this.display = display;
     }
 
