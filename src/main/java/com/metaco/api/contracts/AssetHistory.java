@@ -3,7 +3,6 @@ package com.metaco.api.contracts;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.IntSummaryStatistics;
 import java.util.List;
 
 public class AssetHistory {

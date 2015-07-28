@@ -9,12 +9,11 @@ interface MetacoClient {
 
     /**
      * Register an account on Metaco
-     *
+     * <p>
      * Sends an SMS to the provided phone number
      *
      * @return The initial account settings
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/account/account-management/register-an-account">Online Documentation</a>
      */
     AccountRegistrationResult registerAccount(RegisterAccountRequest request) throws MetacoClientException;
@@ -25,7 +24,6 @@ interface MetacoClient {
      *
      * @return The account details
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/account/account-management/get-account-status">Online Documentation</a>
      */
     AccountStatus getAccountStatus() throws MetacoClientException;
@@ -35,7 +33,6 @@ interface MetacoClient {
      * Validate the authenticated account, throws an exception if there is an error
      *
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/account/confirm-a-registration/confirm-a-phone-number">Online Documentation</a>
      */
     void confirmPhoneNumber(ValidateAccountRequest request) throws MetacoClientException;
@@ -45,7 +42,6 @@ interface MetacoClient {
      *
      * @return The assets array
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/assets/assets-list/list-all-assets">Online Documentation</a>
      */
     Asset[] getAssets() throws MetacoClientException;
@@ -55,7 +51,6 @@ interface MetacoClient {
      *
      * @return The asset object
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/assets/asset-information/retrieve-an-asset">Online Documentation</a>
      */
     Asset getAsset(String ticker) throws MetacoClientException;
@@ -65,7 +60,6 @@ interface MetacoClient {
      *
      * @return The history object
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/assets/asset-information/retrieve-an-asset">Online Documentation</a>
      */
     AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria) throws MetacoClientException;
@@ -76,7 +70,6 @@ interface MetacoClient {
      *
      * @return The history object
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/assets/asset-information/retrieve-an-asset">Online Documentation</a>
      */
     AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException;
@@ -88,7 +81,6 @@ interface MetacoClient {
      * It will require your signature later when the trade state will be Signing
      *
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/request-an-order">Online Documentation</a>
      */
     Order createOrder(NewOrder createOrder) throws MetacoClientException;
@@ -99,7 +91,6 @@ interface MetacoClient {
      *
      * @return The orders array
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/list-all-orders">Online Documentation</a>
      */
     OrderResultPage getOrders() throws MetacoClientException;
@@ -110,7 +101,6 @@ interface MetacoClient {
      *
      * @return The order object
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/retreive-an-order">Online Documentation</a>
      */
     Order getOrder(String id) throws MetacoClientException;
@@ -122,7 +112,6 @@ interface MetacoClient {
      * Then encode the transaction in hexadecimal and send it here
      *
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/submit-a-signed-order">Online Documentation</a>
      */
     Order submitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException;
@@ -132,7 +121,6 @@ interface MetacoClient {
      * Cancel the specified order
      *
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/order-information/cancel-an-order">Online Documentation</a>
      */
     void cancelOrder(String id) throws MetacoClientException;
@@ -142,7 +130,6 @@ interface MetacoClient {
      * Create a Transaction using the provided parameters
      *
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/raw-transaction/get-a-raw-transaction">Online Documentation</a>
      */
     TransactionToSign createTransaction(NewTransaction newTransaction) throws MetacoClientException;
@@ -154,7 +141,6 @@ interface MetacoClient {
      * Then encode the transaction in hexadecimal and send it here
      *
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/transaction-broadcast/broadcast-a-transaction">Online Documentation</a>
      */
     TransactionBroadcastResult broadcastTransaction(RawTransaction rawTransaction) throws MetacoClientException;
@@ -165,7 +151,6 @@ interface MetacoClient {
      * Contains the current balances, the values and the transaction history
      *
      * @throws MetacoClientException
-     *
      * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/transaction-broadcast/fetch-wallet-information">Online Documentation</a>
      */
     WalletDetails getWalletDetails(String address) throws MetacoClientException;

@@ -126,7 +126,7 @@ public class HttpClientImpl implements HttpClient {
     private void HandleError(ClientResponse response) throws MetacoClientException {
         String json;
         try {
-            json =  response.getEntity(String.class);
+            json = response.getEntity(String.class);
         } catch (Exception e) {
             json = null;
         }

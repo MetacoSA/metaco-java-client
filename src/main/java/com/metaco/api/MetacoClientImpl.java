@@ -2,7 +2,8 @@ package com.metaco.api;
 
 import com.metaco.api.contracts.*;
 import com.metaco.api.exceptions.MetacoClientException;
-import com.metaco.api.http.*;
+import com.metaco.api.http.HttpClient;
+import com.metaco.api.http.HttpClientImpl;
 import com.metaco.api.utils.DeserializationUtils;
 import com.sun.jersey.api.client.ClientResponse;
 
@@ -43,18 +44,18 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, AccountStatus.class);
     }
 
-    public void confirmPhoneNumber(ValidateAccountRequest request) throws MetacoClientException  {
+    public void confirmPhoneNumber(ValidateAccountRequest request) throws MetacoClientException {
         ClientResponse response = httpClient.doPost("account/confirmation", request);
 
         HandleDebugData(response);
     }
 
-    public Asset[] getAssets() throws MetacoClientException  {
+    public Asset[] getAssets() throws MetacoClientException {
         ClientResponse response = httpClient.doGet("assets");
 
         HandleDebugData(response);
 
-        return DeserializationUtils.ToObject(response,  Asset[].class);
+        return DeserializationUtils.ToObject(response, Asset[].class);
     }
 
     public Asset getAsset(String ticker) throws MetacoClientException {
@@ -65,18 +66,18 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, Asset.class);
     }
 
-    public AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria) throws MetacoClientException  {
+    public AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria) throws MetacoClientException {
         return getAssetsHistory(criteria, null);
     }
 
-    public AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException  {
+    public AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException {
         String tickersStr;
 
         if (tickers != null && !tickers.isEmpty()) {
             StringBuilder builder = new StringBuilder();
-            for(int i = 0 ; i < tickers.size() ; i ++ ){
+            for (int i = 0; i < tickers.size(); i++) {
                 builder.append(tickers.get(i));
-                if(i != tickers.size() - 1){
+                if (i != tickers.size() - 1) {
                     builder.append(',');
                 }
             }
@@ -93,7 +94,7 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, AssetsHistoryResult.class);
     }
 
-    public Order createOrder(NewOrder createOrder) throws MetacoClientException  {
+    public Order createOrder(NewOrder createOrder) throws MetacoClientException {
         ClientResponse response = httpClient.doPost("orders", createOrder);
 
         HandleDebugData(response);
@@ -101,13 +102,13 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, Order.class);
     }
 
-    public OrderResultPage getOrders() throws MetacoClientException  {
+    public OrderResultPage getOrders() throws MetacoClientException {
         ClientResponse response = httpClient.doGet("orders");
 
         return DeserializationUtils.ToObject(response, OrderResultPage.class);
     }
 
-    public Order getOrder(String id) throws MetacoClientException  {
+    public Order getOrder(String id) throws MetacoClientException {
         ClientResponse response = httpClient.doGet(String.format("orders/%s", id));
 
         HandleDebugData(response);
@@ -115,7 +116,7 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, Order.class);
     }
 
-    public Order submitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException  {
+    public Order submitSignedOrder(String id, RawTransaction rawTransaction) throws MetacoClientException {
         ClientResponse response = httpClient.doPost(String.format("orders/%s", id), rawTransaction);
 
         HandleDebugData(response);
@@ -123,7 +124,7 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, Order.class);
     }
 
-    public void cancelOrder(String id) throws MetacoClientException  {
+    public void cancelOrder(String id) throws MetacoClientException {
         ClientResponse response = httpClient.doDelete(String.format("orders/%s", id));
 
         HandleDebugData(response);
@@ -179,7 +180,9 @@ public class MetacoClientImpl implements MetacoClient {
         return DeserializationUtils.ToObject(response, WalletDetails.class);
     }
 
-    /** Helpers **/
+    /**
+     * Helpers
+     **/
 
     private void HandleDebugData(ClientResponse response) {
         latestDebugData = null;

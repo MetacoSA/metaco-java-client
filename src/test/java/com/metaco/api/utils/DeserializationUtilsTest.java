@@ -1,7 +1,6 @@
 package com.metaco.api.utils;
 
 import com.metaco.api.contracts.Issuer;
-import com.sun.jersey.api.client.ClientResponse;
 import junit.framework.Assert;
 import org.junit.Test;
 
