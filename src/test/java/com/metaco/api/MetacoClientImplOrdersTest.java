@@ -3,80 +3,116 @@ package com.metaco.api;
 import com.metaco.api.contracts.NewOrder;
 import com.metaco.api.contracts.Order;
 import com.metaco.api.contracts.RawTransaction;
+import com.metaco.api.contracts.WalletDetails;
 import com.metaco.api.exceptions.MetacoClientException;
 import com.metaco.api.exceptions.MetacoErrorsDefinitions;
+import com.metaco.api.http.HttpClient;
+import com.sun.jersey.api.client.ClientResponse;
 import helpers.TestUtils;
 import junit.framework.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MetacoClientImplOrdersTest {
-    @Test
-    public void clientCanGetOrders() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder().makeClient();
-
-        Order[] orders = client.getOrders();
-        Assert.assertNotNull(orders);
-        Assert.assertTrue(orders.length > 0);
-    }
 
     @Test
-    public void clientCanGetOrder() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder().makeClient();
-
-        Order order = client.getOrder("5a106504-9650-4b8a-b975-c5fce6c1f0b9");
-        Assert.assertNotNull(order);
-        Assert.assertEquals(order.getId(), "5a106504-9650-4b8a-b975-c5fce6c1f0b9");
-    }
-
-    @Test
-    public void clientCantCancelOrder() throws MetacoClientException {
-        try {
-            MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
-                    .makeClient();
-
-            client.cancelOrder("5b106584-9670-4b8a-b975-c5fce6c1f0b1");
-        } catch (MetacoClientException e) {
-            Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.OrderNotFound);
-        }
-    }
-
-    @Test
-    public void clientCanCreateOrder() throws MetacoClientException {
+    public void clientCanProcessOrder() throws MetacoClientException, InterruptedException {
         MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
                 .makeClient();
 
         NewOrder newOrder = new NewOrder();
         newOrder.setAmount_asset(1);
-        newOrder.setChange("16FzXtXCqqxfTGTdmtAG6ZDSkkWSCjXcQM");
+        newOrder.setChange("");
         List<String> funding = new ArrayList<String>();
-        funding.add("16FzXtXCqqxfTGTdmtAG6ZDSkkWSCjXcQM");
+        funding.add(TestUtils.GetBitcoinAddress());
         newOrder.setFunding(funding);
-        newOrder.setRecipient("16FzXtXCqqxfTGTdmtAG6ZDSkkWSCjXcQM");
-        newOrder.setTicker("DKY:USD");
+        newOrder.setRecipient(TestUtils.GetBitcoinAddress());
+        newOrder.setTicker("MTC:USD");
         newOrder.setType("bid");
 
         Order created = client.createOrder(newOrder);
-
         Assert.assertNotNull(created);
         Assert.assertNotNull(created.getAmount_asset());
         Assert.assertEquals((int) created.getAmount_asset(), 1);
+
+        Order orderToSign = WaitForOrderState(client, created.getId(), "Signing");
+        if (orderToSign == null) {
+            Assert.fail("Order took to long to go to Signing state");
+        }
+
+        /** Signing and submit **/
+        RawTransaction rawTx = new RawTransaction();
+
+        rawTx.setRaw(TestUtils.GetHexSignedTransaction(orderToSign.getTransaction()));
+
+        client.submitSignedOrder(orderToSign.getId(), rawTx);
+
+        /** Wait for broadcasting **/
+        Order unconfirmed = WaitForOrderState(client, created.getId(), "Unconfirmed");
+        if (unconfirmed == null) {
+            Assert.fail("Order took to long to go to Unsigned state");
+        }
+
+        Assert.assertEquals(1, (int)unconfirmed.getAmount_asset());
+
+        /** Fetch all the orders **/
+
+        Order[] orders = client.getOrders();
+        Assert.assertEquals(created.getId(), orders[0].getId());
     }
 
     @Test
-    public void clientCantSubmitSignedOrder() throws MetacoClientException {
-        try {
-            MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
-                    .makeClient();
+    public void clientCanCancelOrder() throws MetacoClientException, InterruptedException {
+        MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
+                .makeClient();
 
-            RawTransaction rawTx = new RawTransaction();
-            rawTx.setRaw("fakerawtx");
+        NewOrder newOrder = new NewOrder();
+        newOrder.setAmount_asset(1);
+        newOrder.setChange("");
+        List<String> funding = new ArrayList<String>();
+        funding.add(TestUtils.GetBitcoinAddress());
+        newOrder.setFunding(funding);
+        newOrder.setRecipient(TestUtils.GetBitcoinAddress());
+        newOrder.setTicker("MTC:USD");
+        newOrder.setType("bid");
 
-            client.submitSignedOrder("5a106504-9650-4b8a-b975-c5fce6c1f0b9", rawTx);
-        } catch (MetacoClientException e) {
-            Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.InvalidInput);
+        Order created = client.createOrder(newOrder);
+        Assert.assertNotNull(created);
+        Assert.assertNotNull(created.getAmount_asset());
+        Assert.assertEquals((int) created.getAmount_asset(), 1);
+
+        client.cancelOrder(created.getId());
+
+        /** Wait for cancel **/
+        Order canceled = WaitForOrderState(client, created.getId(), "Canceled");
+        if (canceled == null) {
+            Assert.fail("Order took to long to go to Canceled state");
         }
+
+        Assert.assertEquals("Canceled", canceled.getStatus());
+    }
+
+    private Order WaitForOrderState(MetacoClient client, String orderId, String status) throws MetacoClientException, InterruptedException {
+        int remainingTries = 15;
+        boolean orderReady = false;
+        Order order;
+        do {
+            Thread.sleep(2000);
+            order = client.getOrder(orderId);
+
+            if (order.getStatus().equals(status)) {
+                orderReady = true;
+            }
+
+            remainingTries--;
+
+            if (remainingTries == 0) {
+                return null;
+            }
+        } while (!orderReady);
+        return order;
     }
 }
