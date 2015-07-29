@@ -3,7 +3,7 @@
 [Metaco](https://metaco.com) REST API provides a set of services to integrate Metaco into third-party applications. It offers trading and payment facilities as well as wallet management features.
 
 Our Java Client implements every single functionality of the API.
-You can find a detailed documentation here : [API Documentation](http://docs.metaco.apiary.io/)
+You can find a detailed documentation here : [API Documentation](http://docs.metaco.apiary.io/), and the javadoc here : [JavaDoc](http://metacosa.github.io/metaco-java-client/)
 
 Installation
 ----------------------------------------------
