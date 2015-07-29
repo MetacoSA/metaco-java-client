@@ -5,7 +5,7 @@ import com.metaco.api.exceptions.MetacoClientException;
 
 import java.util.List;
 
-interface MetacoClient {
+public interface MetacoClient {
 
     /**
      * Register an account on Metaco
