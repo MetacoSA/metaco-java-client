@@ -22,7 +22,13 @@ Add the following dependency to your project's Maven pom.xml:
 
 ### Manual
 
-To be updated.
+Our latest releases should also be available on the [Github releases](https://github.com/MetacoSA/metaco-java-client/releases). You can download our JAR file here.
+
+You will also need to manually install those dependencies :
+* [jersey-client-1.19.jar](http://central.maven.org/maven2/com/sun/jersey/jersey-client/1.19/jersey-client-1.19.jar)
+* [jersey-core-1.19.jar](http://central.maven.org/maven2/com/sun/jersey/jersey-core/1.19/jersey-core-1.19.jar)
+* [jsr311-api-1.1.1.jar](http://central.maven.org/maven2/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar)
+* [gson-2.3.1.jar](http://central.maven.org/maven2/com/google/code/gson/gson/2.3.1/gson-2.3.1.jar)
 
 Usage
 ----------------------------------------------
