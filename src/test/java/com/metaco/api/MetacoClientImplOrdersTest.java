@@ -13,7 +13,6 @@ public class MetacoClientImplOrdersTest {
 
     @Test
     public void clientCanProcessOrder() throws MetacoClientException, InterruptedException {
-        try {
             MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
                     .makeClient();
 
@@ -34,7 +33,7 @@ public class MetacoClientImplOrdersTest {
 
             Order orderToSign = WaitForOrderState(client, created.getId(), "Signing");
             if (orderToSign == null) {
-                Assert.fail("Order took to long to go to Signing state");
+                Assert.fail("Order " + created.getId() + " took to long to go to Signing state");
             }
 
             /** Signing and submit **/
@@ -47,7 +46,7 @@ public class MetacoClientImplOrdersTest {
             /** Wait for broadcasting **/
             Order unconfirmed = WaitForOrderState(client, created.getId(), "Unconfirmed");
             if (unconfirmed == null) {
-                Assert.fail("Order took to long to go to Unsigned state");
+                Assert.fail("Order " + created.getId() + " took to long to go to Unconfirmed state");
             }
 
             Assert.assertEquals(1, (long)unconfirmed.getAmountAsset());
@@ -55,10 +54,19 @@ public class MetacoClientImplOrdersTest {
             /** Fetch all the orders **/
 
             OrderResultPage orders = client.getOrders();
-            Assert.assertEquals(created.getId(), orders.getOrders()[0].getId());
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if (!OrderIsInList(orders, created.getId())) {
+            Assert.fail("Order " + created.getId() + " is not present in orders list");
         }
+    }
+
+    private boolean OrderIsInList(OrderResultPage orders, String orderId) {
+        for(Order order : orders.getOrders()) {
+            if (order.getId().equals(orderId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Test
@@ -86,7 +94,7 @@ public class MetacoClientImplOrdersTest {
         /** Wait for cancel **/
         Order canceled = WaitForOrderState(client, created.getId(), "Canceled");
         if (canceled == null) {
-            Assert.fail("Order took to long to go to Canceled state");
+            Assert.fail("Order " + created.getId() + " took to long to go to Canceled state");
         }
 
         Assert.assertEquals("Canceled", canceled.getStatus());
