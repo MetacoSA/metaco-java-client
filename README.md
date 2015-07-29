@@ -8,6 +8,20 @@ You can find a detailed documentation here : [API Documentation](http://docs.met
 Installation
 ----------------------------------------------
 
+### Using Maven
+
+Add the following dependency to your project's Maven pom.xml:
+
+```xml
+<dependency>
+	<groupId>com.metaco.api</groupId>
+	<artifactId>metaco-java-client</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
+### Manual
+
 To be updated.
 
 Usage
