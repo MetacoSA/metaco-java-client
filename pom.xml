@@ -29,6 +29,21 @@
         <url>https://github.com/MetacoSA/metaco-java-client</url>
     </scm>
 
+    <developers>
+        <developer>
+            <id>AlexisChevalier</id>
+            <name>Alexis Chevalier</name>
+            <email>alexis.chevalier1@gmail.com</email>
+            <url>https://github.com/AlexisChevalier</url>
+            <organization>METACO</organization>
+            <organizationUrl>https://metaco.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>Europe/Paris</timezone>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>com.sun.jersey</groupId>
