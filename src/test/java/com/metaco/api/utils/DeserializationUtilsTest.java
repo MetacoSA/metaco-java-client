@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
 
 public class DeserializationUtilsTest {
     @Test
-    public void testPrivateConstructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+     public void testPrivateConstructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor constructor = DeserializationUtils.class.getDeclaredConstructor();
         Assert.assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
 

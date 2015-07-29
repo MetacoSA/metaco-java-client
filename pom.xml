@@ -97,7 +97,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <serverId>ossrh</serverId>
                     <stagingProfileId>266436617b2e4b</stagingProfileId>
-                    <!--<autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>
