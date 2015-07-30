@@ -38,9 +38,7 @@ public class HttpClientImpl implements HttpClient {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .post(ClientResponse.class);
 
-        if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
-            HandleError(response);
-        }
+        HandleErrorIfNeeded(response);
 
         return response;
     }
@@ -56,30 +54,7 @@ public class HttpClientImpl implements HttpClient {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get(ClientResponse.class);
 
-        if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
-            HandleError(response);
-        }
-
-        return response;
-    }
-
-    public ClientResponse doPut(String url, Object data) throws MetacoClientException {
-        Client client = Client.create();
-
-        String jsonEntity = new Gson().toJson(data);
-
-        WebResource webResource = client.resource(GetUrl(url));
-
-        WebResource.Builder builder = SetHeaders(webResource);
-
-        ClientResponse response = builder
-                .entity(jsonEntity, MediaType.APPLICATION_JSON_TYPE)
-                .accept(MediaType.APPLICATION_JSON_TYPE)
-                .put(ClientResponse.class);
-
-        if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
-            HandleError(response);
-        }
+        HandleErrorIfNeeded(response);
 
         return response;
     }
@@ -96,9 +71,9 @@ public class HttpClientImpl implements HttpClient {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .delete(ClientResponse.class);
 
-        if (!HttpUtils.IsSuccessStatusCode(response.getStatus())) {
-            HandleError(response);
-        }
+        HandleErrorIfNeeded(response);
+
+        HandleErrorIfNeeded(response);
 
         return response;
     }
@@ -123,13 +98,7 @@ public class HttpClientImpl implements HttpClient {
         return builder;
     }
 
-    private void HandleError(ClientResponse response) throws MetacoClientException {
-        String json;
-        try {
-            json = response.getEntity(String.class);
-        } catch (Exception e) {
-            json = null;
-        }
-        ErrorHandler.HandleInvalidResponse(response.getStatus(), json);
+    private void HandleErrorIfNeeded(ClientResponse response) throws MetacoClientException {
+        ErrorHandler.HandleInvalidResponse(response);
     }
 }

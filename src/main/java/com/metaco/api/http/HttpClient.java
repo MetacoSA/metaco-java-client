@@ -8,7 +8,5 @@ public interface HttpClient {
 
     ClientResponse doGet(String uri) throws MetacoClientException;
 
-    ClientResponse doPut(String uri, Object data) throws MetacoClientException;
-
     ClientResponse doDelete(String uri) throws MetacoClientException;
 }

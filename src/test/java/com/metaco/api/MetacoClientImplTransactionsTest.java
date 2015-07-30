@@ -68,7 +68,9 @@ public class MetacoClientImplTransactionsTest {
         Assert.assertTrue(result.isSuccess());
     }
 
-    @Test public void clientCantBroadcastTransaction() {
+
+    @Test
+    public void clientCantBroadcastTransaction() {
         try {
             MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
                     .makeClient();
@@ -82,16 +84,13 @@ public class MetacoClientImplTransactionsTest {
         }
     }
 
-    @Test public void clientCanGetWalletDetails() throws MetacoClientException {
-        try {
+    @Test
+    public void clientCanGetWalletDetails() throws MetacoClientException {
         MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
                 .makeClient();
 
         WalletDetails walletDetails = client.getWalletDetails(TestUtils.GetBitcoinAddress());
         Assert.assertNotNull(walletDetails);
         Assert.assertEquals(walletDetails.getAddresses().get(0), TestUtils.GetBitcoinAddress());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -2,6 +2,7 @@ package com.metaco.api;
 
 import com.metaco.api.contracts.*;
 import com.metaco.api.exceptions.MetacoClientException;
+import com.metaco.api.exceptions.MetacoErrorsDefinitions;
 import helpers.TestUtils;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -50,6 +51,14 @@ public class MetacoClientImplOrdersTest {
             }
 
             Assert.assertEquals(1, (long)unconfirmed.getAmountAsset());
+
+            /** Try to delete broadcasting order **/
+            try {
+                client.cancelOrder(unconfirmed.getId());
+            } catch (MetacoClientException e) {
+                Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.OrderNotCancellable);
+            }
+
 
             /** Fetch all the orders **/
 

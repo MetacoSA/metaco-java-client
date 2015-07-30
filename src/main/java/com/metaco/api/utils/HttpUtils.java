@@ -2,7 +2,6 @@ package com.metaco.api.utils;
 
 public class HttpUtils {
     private HttpUtils() {
-
     }
 
     public static Boolean IsSuccessStatusCode(int status) {

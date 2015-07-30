@@ -2,6 +2,8 @@ package com.metaco.api.exceptions;
 
 public class MetacoErrorsDefinitions {
 
+    private MetacoErrorsDefinitions() {}
+
     public enum ErrorType {
         InvalidInput("invalid_input"),
         APICallsQuotaExceeded("api_calls_quota_exceeded"),
@@ -14,11 +16,11 @@ public class MetacoErrorsDefinitions {
         OrderCountLimitExceeded("order_count_limit_exceeded"),
         YearlyTransactionQuotaExceeded("yearly_transaction_quota_exceeded"),
         MaximumTransactionAmountExceeded("maximum_transaction_amount_exceeded"),
-        Unauthorized(""),
-        NotFound(""),
-        ServerError(""),
-        UnknownError("");
-
+        OrderNotCancellable("order_not_cancellable"),
+        Unauthorized("unauthorized"),
+        NotFound("notfound"),
+        ServerError("servererror"),
+        UnknownError("unknownerror");
 
         public String parameterName;
 
