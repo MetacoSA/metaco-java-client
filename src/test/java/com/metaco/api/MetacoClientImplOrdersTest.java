@@ -96,7 +96,7 @@ public class MetacoClientImplOrdersTest {
         if (canceled == null) {
             Assert.fail("Order " + created.getId() + " took to long to go to Canceled state");
         }
-
+        Assert.assertEquals(canceled.getCancelReason(), "explicit_cancel");
         Assert.assertEquals("Canceled", canceled.getStatus());
     }
 

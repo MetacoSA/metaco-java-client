@@ -15,6 +15,8 @@ public class Order {
     private String ticker;
     @SerializedName("type")
     private String type;
+    @SerializedName("cancel_reason")
+    private String cancelReason;
     @SerializedName("amount_satoshi")
     private Long amountSatoshi;
     @SerializedName("amount_asset")
@@ -105,6 +107,14 @@ public class Order {
 
     public void setTransaction(TransactionToSign transaction) {
         this.transaction = transaction;
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
     }
 }
 
