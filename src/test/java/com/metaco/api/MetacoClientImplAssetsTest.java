@@ -38,7 +38,7 @@ public class MetacoClientImplAssetsTest {
             Asset asset = client.getAsset("FAKE:ASSET");
         } catch (MetacoClientException e) {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.InvalidInput);
-            Assert.assertEquals(e.getContent(), "{\r\n  \"status\": 404,\r\n  \"metaco_error\": \"invalid_input\",\r\n  \"parameter_name\": \"tickedId\",\r\n  \"message\": \"Ticker not found\"\r\n}");
+            Assert.assertEquals(e.getContent(), "{\r\n  \"status\": 404,\r\n  \"metaco_error\": \"invalid_input\",\r\n  \"parameter_name\": \"tickerId\",\r\n  \"message\": \"Ticker not found\"\r\n}");
             Assert.assertEquals(e.getMetacoError().getMessage(), "Ticker not found");
             Assert.assertEquals(e.getStatusCode(), 404);
             Assert.assertEquals(e.getMetacoError().getLocation(), null);
