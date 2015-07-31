@@ -73,8 +73,6 @@ public class HttpClientImpl implements HttpClient {
 
         HandleErrorIfNeeded(response);
 
-        HandleErrorIfNeeded(response);
-
         return response;
     }
 
