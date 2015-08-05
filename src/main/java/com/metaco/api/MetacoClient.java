@@ -9,8 +9,9 @@ public interface MetacoClient {
 
     /**
      * Register an account on Metaco
-     * <p>
      * Sends an SMS to the provided phone number
+     *
+     * If you are in debug mode, this request will return a HTTP header X-Metaco-DebugData with the validation code, it won't be send by SMS
      *
      * @return The initial account settings
      * @throws MetacoClientException
@@ -60,7 +61,7 @@ public interface MetacoClient {
      *
      * @return The history object
      * @throws MetacoClientException
-     * @see <a href="http://docs.metaco.apiary.io/#reference/assets/asset-information/retrieve-an-asset">Online Documentation</a>
+     * @see <a href="http://docs.metaco.apiary.io/#reference/assets/assets-history/retrieve-history-of-all-assets">Online Documentation</a>
      */
     AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria) throws MetacoClientException;
 
@@ -70,7 +71,7 @@ public interface MetacoClient {
      *
      * @return The history object
      * @throws MetacoClientException
-     * @see <a href="http://docs.metaco.apiary.io/#reference/assets/asset-information/retrieve-an-asset">Online Documentation</a>
+     * @see <a href="http://docs.metaco.apiary.io/#reference/assets/assets-history/retrieve-history-of-all-assets">Online Documentation</a>
      */
     AssetsHistoryResult getAssetsHistory(HistoryCriteria criteria, List<String> tickers) throws MetacoClientException;
 
