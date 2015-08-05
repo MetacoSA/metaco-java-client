@@ -71,10 +71,9 @@ public class MetacoClientImplAssetsTest {
 
         List<String> tickers = new ArrayList<String>();
         tickers.add("USD");
-        tickers.add("XAU");
 
         AssetsHistoryResult historyResult = client.getAssetsHistory(criteria, tickers);
         Assert.assertNotNull(historyResult);
-        Assert.assertTrue(historyResult.getAssets().length > 0);
+        Assert.assertTrue(historyResult.getAssets().length == 1);
     }
 }

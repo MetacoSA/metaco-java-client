@@ -86,7 +86,7 @@ public class MetacoClientImpl implements MetacoClient {
             tickersStr = "all";
         }
 
-        ClientResponse response = httpClient.doGet(String.format("assets/history?tickers=%s&from=%d&to=%d&freq=%s&orderAsc=%s",
+        ClientResponse response = httpClient.doGet(String.format("assets/history?underlyings=%s&from=%d&to=%d&freq=%s&orderAsc=%s",
                 tickersStr, criteria.getFrom(), criteria.getTo(), criteria.getFreq(), criteria.getOrderAsc()));
 
         HandleDebugData(response);
