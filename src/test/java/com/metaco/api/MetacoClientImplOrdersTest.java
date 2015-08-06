@@ -18,7 +18,7 @@ public class MetacoClientImplOrdersTest {
                     .makeClient();
 
             NewOrder newOrder = new NewOrder();
-            newOrder.setAmountAsset(1L);
+            newOrder.setAmountAsset(100L);
             newOrder.setChange("");
             List<String> funding = new ArrayList<String>();
             funding.add(TestUtils.GetBitcoinAddress());
@@ -30,7 +30,7 @@ public class MetacoClientImplOrdersTest {
             Order created = client.createOrder(newOrder);
             Assert.assertNotNull(created);
             Assert.assertNotNull(created.getAmountAsset());
-            Assert.assertEquals((long)created.getAmountAsset(), 1L);
+            Assert.assertEquals((long)created.getAmountAsset(), 100L);
 
             Order orderToSign = WaitForOrderState(client, created.getId(), "Signing");
             if (orderToSign == null) {
@@ -50,7 +50,7 @@ public class MetacoClientImplOrdersTest {
                 Assert.fail("Order " + created.getId() + " took to long to go to Unconfirmed state");
             }
 
-            Assert.assertEquals(1, (long)unconfirmed.getAmountAsset());
+            Assert.assertEquals(100, (long)unconfirmed.getAmountAsset());
 
             /** Try to delete broadcasting order **/
             try {
@@ -84,7 +84,7 @@ public class MetacoClientImplOrdersTest {
                 .makeClient();
 
         NewOrder newOrder = new NewOrder();
-        newOrder.setAmountAsset(1L);
+        newOrder.setAmountAsset(100L);
         newOrder.setChange("");
         List<String> funding = new ArrayList<String>();
         funding.add(TestUtils.GetBitcoinAddress());
@@ -96,7 +96,7 @@ public class MetacoClientImplOrdersTest {
         Order created = client.createOrder(newOrder);
         Assert.assertNotNull(created);
         Assert.assertNotNull(created.getAmountAsset());
-        Assert.assertEquals((long)created.getAmountAsset(), 1);
+        Assert.assertEquals((long)created.getAmountAsset(), 100L);
 
         client.cancelOrder(created.getId());
 
