@@ -79,6 +79,7 @@ public class MetacoClientImplTransactionsTest {
             raw.setRaw("fakerawtx");
 
             client.broadcastTransaction(raw);
+            Assert.fail("Fake transaction was broadcasted");
         } catch (MetacoClientException e) {
             Assert.assertEquals(e.getErrorType(), MetacoErrorsDefinitions.ErrorType.InvalidInput);
         }
