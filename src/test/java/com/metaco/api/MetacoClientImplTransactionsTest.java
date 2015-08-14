@@ -8,8 +8,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MetacoClientImplTransactionsTest {
     @Test
@@ -92,6 +90,21 @@ public class MetacoClientImplTransactionsTest {
 
         WalletDetails walletDetails = client.getWalletDetails(TestUtils.GetBitcoinAddress());
         Assert.assertNotNull(walletDetails);
+        Assert.assertEquals(walletDetails.getAddresses().get(0), TestUtils.GetBitcoinAddress());
+    }
+
+    @Test
+    public void clientCanGetPaginatedWalletDetails() throws MetacoClientException {
+        MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
+                .makeClient();
+
+        PageCriteria criteria = new PageCriteria();
+        criteria.setPageNumber(0);
+        criteria.setPageSize(1);
+
+        WalletDetails walletDetails = client.getWalletDetails(TestUtils.GetBitcoinAddress(), criteria);
+        Assert.assertNotNull(walletDetails);
+        Assert.assertEquals(walletDetails.getTransactions().size(), 1);
         Assert.assertEquals(walletDetails.getAddresses().get(0), TestUtils.GetBitcoinAddress());
     }
 }

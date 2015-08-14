@@ -79,6 +79,20 @@ public class MetacoClientImplOrdersTest {
     }
 
     @Test
+    public void clientCanGetPaginatedOrders() throws MetacoClientException {
+        MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
+                .makeClient();
+
+        PageCriteria criteria = new PageCriteria();
+        criteria.setPageNumber(0);
+        criteria.setPageSize(1);
+
+        OrderResultPage orders = client.getOrders(criteria);
+        Assert.assertNotNull(orders);
+        Assert.assertEquals(orders.getOrders().length, 1);
+    }
+
+    @Test
     public void clientCanCancelOrder() throws MetacoClientException, InterruptedException {
         MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
                 .makeClient();

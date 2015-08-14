@@ -103,7 +103,17 @@ public class MetacoClientImpl implements MetacoClient {
     }
 
     public OrderResultPage getOrders() throws MetacoClientException {
-        ClientResponse response = httpClient.doGet("orders");
+        return getOrders(null);
+    }
+
+    public OrderResultPage getOrders(PageCriteria pageCriteria) throws MetacoClientException {
+        String url = "orders";
+
+        if (pageCriteria != null) {
+            url += String.format("?pageNumber=%d&pageSize=%d", pageCriteria.getPageNumber(), pageCriteria.getPageSize());
+        }
+
+        ClientResponse response = httpClient.doGet(url);
 
         return DeserializationUtils.ToObject(response, OrderResultPage.class);
     }
@@ -173,7 +183,17 @@ public class MetacoClientImpl implements MetacoClient {
     }
 
     public WalletDetails getWalletDetails(String address) throws MetacoClientException {
-        ClientResponse response = httpClient.doGet(String.format("transactions/%s", address));
+        return getWalletDetails(address, null);
+    }
+
+    public WalletDetails getWalletDetails(String address, PageCriteria pageCriteria) throws MetacoClientException {
+        String url = String.format("transactions/%s", address);
+
+        if (pageCriteria != null) {
+            url += String.format("?pageNumber=%d&pageSize=%d", pageCriteria.getPageNumber(), pageCriteria.getPageSize());
+        }
+
+        ClientResponse response = httpClient.doGet(url);
 
         HandleDebugData(response);
 

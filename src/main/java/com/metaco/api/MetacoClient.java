@@ -88,13 +88,23 @@ public interface MetacoClient {
 
     /**
      * Requires Authentication
-     * Returns the user's orders
+     * Returns the user's orders, you will get the 500 first results
      *
      * @return The orders array
      * @throws MetacoClientException
      * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/list-all-orders">Online Documentation</a>
      */
     OrderResultPage getOrders() throws MetacoClientException;
+
+    /**
+     * Requires Authentication
+     * Returns the user's orders, according to the pageCriteria settings (the page size is limited to 500)
+     *
+     * @return The orders array
+     * @throws MetacoClientException
+     * @see <a href="http://docs.metaco.apiary.io/#reference/orders/orders-management/list-all-orders">Online Documentation</a>
+     */
+    OrderResultPage getOrders(PageCriteria pageCriteria) throws MetacoClientException;
 
     /**
      * Requires Authentication
@@ -149,12 +159,24 @@ public interface MetacoClient {
     /**
      * Requires Authentication
      * Returns the current wallet state
+     * The transaction history is paginated, you will get the 500 first results
      * Contains the current balances, the values and the transaction history
      *
      * @throws MetacoClientException
      * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/transaction-broadcast/fetch-wallet-information">Online Documentation</a>
      */
     WalletDetails getWalletDetails(String address) throws MetacoClientException;
+
+    /**
+     * Requires Authentication
+     * Returns the current wallet state
+     * The transaction history is paginated, you can choose your page using the pageCriteria parameter (the page size is limited to 500)
+     * Contains the current balances, the values and the transaction history
+     *
+     * @throws MetacoClientException
+     * @see <a href="http://docs.metaco.apiary.io/#reference/transactions/transaction-broadcast/fetch-wallet-information">Online Documentation</a>
+     */
+    WalletDetails getWalletDetails(String address, PageCriteria pageCriteria) throws MetacoClientException;
 
     /**
      * For testing purposes only
