@@ -16,7 +16,7 @@ Add the following dependency to your project's Maven pom.xml:
 <dependency>
 	<groupId>com.metaco.api</groupId>
 	<artifactId>metaco-java-client</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 </dependency>
 ```
 
