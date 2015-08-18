@@ -1,5 +1,6 @@
 com.metaco.api
 com.metaco.api.contracts
+com.metaco.api.encoders
 com.metaco.api.exceptions
 com.metaco.api.http
 com.metaco.api.utils
