@@ -1,9 +1,7 @@
-package com.metaco.api.utils;
+package com.metaco.api.encoders;
 
 import helpers.Tuple;
 import junit.framework.Assert;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Base58;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,7 +50,7 @@ public class Base58CheckTest {
     }
 
     @Test
-    public void canDecodeFromBase58() throws NoSuchAlgorithmException, AddressFormatException {
+    public void canDecodeFromBase58() throws NoSuchAlgorithmException {
 
         for (Tuple<String, byte[]> test : _testCases) {
             byte[] expected = test.item2;

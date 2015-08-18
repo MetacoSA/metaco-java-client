@@ -1,10 +1,11 @@
-package com.metaco.api.utils;
+package com.metaco.api.encoders;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+/* Inspired from https://github.com/adamcaudill/Base58Check/blob/master/src/Base58Check/Base58CheckEncoding.cs */
 public class Base58Check {
     private static String ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
     private static char[] ALPHABET_ARRAY = ALPHABET.toCharArray();
