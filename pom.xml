@@ -6,7 +6,7 @@
 
     <groupId>com.metaco.api</groupId>
     <artifactId>metaco-java-client</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 
     <name>Metaco API Client for Java</name>
     <description>Metaco REST API provides a set of services to integrate Metaco into third-party applications. It offers trading and payment facilities as well as wallet management features.</description>

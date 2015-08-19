@@ -7,6 +7,11 @@ import java.security.NoSuchAlgorithmException;
 public class BitcoinAddressUtils {
 
     private static byte OPEN_ASSETS_NAMESPACE = 19;
+    private static byte P2PKH_MAIN_NET = 0x0;
+    private static byte P2SH_MAIN_NET = 0x5;
+    private static byte P2PKH_TEST_NET = 0x6F;
+    private static byte P2SH_TEST_NET = (byte) 0xC4;
+    private static byte[] VALID_VERSIONS = new byte[] {P2PKH_MAIN_NET, P2SH_MAIN_NET, P2PKH_TEST_NET, P2SH_TEST_NET};
 
     /**
      * Tries to convert a regular address to an open assets address
@@ -80,7 +85,13 @@ public class BitcoinAddressUtils {
             throw new IllegalArgumentException("address isn't a valid regular address : length too big");
         }
 
-        if (bytesValue[0] != 5 && bytesValue[0] != 0) {
+        boolean versionValidated = false;
+        for (byte b: VALID_VERSIONS){
+            if(bytesValue[0] == b) {
+                versionValidated = true;
+            }
+        }
+        if (!versionValidated) {
             throw new IllegalArgumentException("address isn't a valid regular address : version byte invalid");
         }
     }
@@ -91,7 +102,13 @@ public class BitcoinAddressUtils {
             throw new IllegalArgumentException("address isn't a valid colored address : length too big");
         }
 
-        if (bytesValue[1] != 5 && bytesValue[1] != 0) {
+        boolean versionValidated = false;
+        for (byte b: VALID_VERSIONS){
+            if(bytesValue[1] == b) {
+                versionValidated = true;
+            }
+        }
+        if (!versionValidated) {
             throw new IllegalArgumentException("address isn't a valid colored address : version byte invalid");
         }
 
