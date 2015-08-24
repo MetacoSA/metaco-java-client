@@ -13,7 +13,7 @@ public class AssetHistory {
     @SerializedName("times")
     private List<Integer> times = new ArrayList<Integer>();
     @SerializedName("volumes")
-    private List<Integer> volumes = new ArrayList<Integer>();
+    private List<Float> volumes = new ArrayList<Float>();
 
     public AssetHistory() {
     }
@@ -42,11 +42,11 @@ public class AssetHistory {
         this.times = times;
     }
 
-    public List<Integer> getVolumes() {
+    public List<Float> getVolumes() {
         return volumes;
     }
 
-    public void setVolumes(List<Integer> volumes) {
+    public void setVolumes(List<Float> volumes) {
         this.volumes = volumes;
     }
 }

@@ -40,8 +40,10 @@ public class MetacoClientImplTransactionsTest {
 
     @Test
     public void clientCanProcessBtcTransaction() throws MetacoClientException {
-        MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
-                .makeClient();
+        try {
+            MetacoClient client = TestUtils.GetMetacoAuthenticatedClientTestBuilder()
+                    .makeClient();
+
 
         NewTransaction newTransaction = new NewTransaction();
         newTransaction.setTicker("XBT");
@@ -64,6 +66,9 @@ public class MetacoClientImplTransactionsTest {
         TransactionBroadcastResult result = client.broadcastTransaction(rawTx);
 
         Assert.assertTrue(result.isSuccess());
+        } catch(Exception e) {
+            String eee = "";
+        }
     }
 
 
