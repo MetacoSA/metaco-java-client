@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 public class RegisterAccountRequest {
     @SerializedName("phone")
     private String phone;
+    @SerializedName("provider_id")
+    private String providerId;
 
     public RegisterAccountRequest() {
     }
@@ -15,5 +17,13 @@ public class RegisterAccountRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 }

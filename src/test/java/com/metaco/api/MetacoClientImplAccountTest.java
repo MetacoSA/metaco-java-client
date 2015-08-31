@@ -18,6 +18,7 @@ public class MetacoClientImplAccountTest {
         /** Account registration **/
         RegisterAccountRequest registerAccountRequest = new RegisterAccountRequest();
         registerAccountRequest.setPhone("+15005550006");
+        registerAccountRequest.setProviderId("TestsProvider");
 
         AccountRegistrationResult result = client.registerAccount(registerAccountRequest);
         Assert.assertNotNull(result.getApiId());
